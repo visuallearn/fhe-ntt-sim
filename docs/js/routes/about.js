@@ -150,7 +150,7 @@ export function mount(root) {
       + '2 GB of disk space. It needs no Node and no npm. The website is plain ES modules. '
       + 'A server sends the files without changes.'),
     h('pre', { class: 'cmd' }, [
-      'git clone <this repo> && cd ntt-intt',
+      'git clone https://github.com/visuallearn/fhe-ntt-sim && cd fhe-ntt-sim',
       './tools/06_all.sh          # fetch, patch, build, generate, verify',
       '',
       '# or step by step:',
