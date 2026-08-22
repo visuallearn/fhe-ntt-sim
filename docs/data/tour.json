@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "steps": [
+    {
+      "id": "problem",
+      "title": "Multiplication of polynomials is slow",
+      "fig": "polymul",
+      "body": [
+        "This transform makes one operation fast. That operation is the multiplication of two polynomials.",
+        "The polynomial `a(X)` has {{N}} coefficients. The polynomial `b(X)` also has {{N}} coefficients.",
+        "The direct method multiplies every coefficient of `a` by every coefficient of `b`. This gives **{{N}} x {{N}} = {{NN}}** multiplications.",
+        "If the polynomials become two times longer, the cost becomes four times larger.",
+        "Small examples are not a problem. Real homomorphic encryption uses polynomials with thousands of coefficients. It multiplies them many times. This quadratic cost is too high."
+      ]
+    },
+    {
+      "id": "ring",
+      "title": "The polynomials return to the start",
+      "fig": "wrap",
+      "body": [
+        "These polynomials have one more condition. They are in a ring where **X^{{N}} = −1**.",
+        "A product can go past degree {{N}}. The result then returns to degree 0. It also changes sign.",
+        "The product `X^{{Nm1}} * X` is not `X^{{N}}`. It is `-1`.",
+        "This operation is a *negacyclic* convolution. The change of sign makes the transform different from the FFT of a signal-processing course."
+      ]
+    },
+    {
+      "id": "idea",
+      "title": "The method: values instead of coefficients",
+      "fig": "pipeline",
+      "body": [
+        "This is the complete idea.",
+        "A polynomial with {{N}} coefficients has one value at each point. **The values at {{N}} different points define the polynomial completely.**",
+        "Coefficients and values are two descriptions of the same polynomial. You can change one description into the other. This website calls them the **coefficient form** and the **value form**. Other texts call the value form the evaluation form, or the evaluation representation. OpenFHE calls it the EVALUATION format.",
+        "Values are easy to multiply. If you know `a` and `b` at the same {{N}} points, the product `a*b` needs only {{N}} multiplications of numbers. That is one multiplication for each point.",
+        "The product of two polynomials with {{N}} coefficients each can reach degree {{Nm1}} + {{Nm1}}, so {{N}} values do not define it. In this ring it does. The evaluation points are roots of X^{{N}} + 1, so one multiplication for each point gives the product **after** the reduction by X^{{N}} + 1. That reduced product has {{N}} coefficients, and {{N}} values define it.",
+        "The method has three parts: a change of both polynomials into values, one multiplication for each point, and a change of the result back into coefficients.",
+        "The total is three conversions and {{N}} multiplications. The inverse transform also multiplies {{halfN}} values by N⁻¹ at the end. The direct method needs {{NN}} multiplications. Each conversion is a **Number Theoretic Transform**. One conversion needs approximately `N log N` operations.",
+        "The three conversions are not necessary for each multiplication. A polynomial can stay in the value form. In that form, an addition or a multiplication needs one operation for each point.",
+        "A program therefore converts one time, does many operations, and converts back only when it needs the coefficients. OpenFHE keeps a ciphertext in the value form for this reason. The cost of the conversions is then small for the complete calculation."
+      ]
+    },
+    {
+      "id": "where",
+      "title": "The selection of the points",
+      "fig": "circle",
+      "body": [
+        "A random selection of the {{N}} points does not work. The transform is fast only if all the points are powers of one number.",
+        "The modulus is the prime **q = {{q}}**. We need a number with powers that return to 1 after exactly {{M}} steps.",
+        "Such a number is a primitive **{{M}}-th root of unity**. Here it is **ψ = {{psi}}**.",
+        "The order is {{M}} = 2 x {{N}}, not {{N}}. The reason is the change of sign in step 2. The number must become −1 at the middle of the cycle, not +1 at the end.",
+        "The test is **ψ^{{N}} = {{negOne}}**, and that value is −1 mod {{q}}.",
+        "This condition also controls the modulus. Such a number exists only if **q − 1 is divisible by {{M}}**. Here (q−1)/{{M}} = {{cofactor}}, which is a whole number. OpenFHE selects a modulus with this property."
+      ]
+    },
+    {
+      "id": "psi",
+      "title": "The number ψ",
+      "fig": "psipow",
+      "body": [
+        "The figure shows all {{M}} powers of ψ = {{psi}}, mod {{q}}. Each step multiplies the value by ψ again. After {{M}} steps the value is 1 again.",
+        "The **odd** powers are the {{N}} points of the forward transform.",
+        "The even powers are the squares of ψ. They make a smaller cycle with {{N}} elements. The butterflies combine these even powers.",
+        "The value of ψ^{{N}} is {{negOne}}, which is −1. The middle of the cycle is exactly −1. This property gives X^{{N}} = −1."
+      ]
+    },
+    {
+      "id": "table",
+      "title": "The twiddle table and its order",
+      "fig": "table",
+      "body": [
+        "The transform uses these powers of ψ many times. OpenFHE calculates them one time and keeps them in a table. The table is **not** in numerical order.",
+        "Slot `j` holds ψ with the exponent from the bit-reversal of `j`.",
+        "The indexes have {{logN}} bits. Slot 1 is `{{bin1}}`. The reversal is `{{brev1bin}}`, which is {{brev1}}. Slot 1 therefore holds ψ^{{brev1}} = {{tw1}}.",
+        "This order looks strange, but the loops give the reason. The butterflies read the table in sequence: slot 1, then slot 2, then slot 3. The bit-reversed order gives the correct factor at each read. No index calculation is necessary.",
+        "The table also includes the negacyclic condition from step 2. A separate operation for that condition is not necessary. One table does two jobs."
+      ]
+    },
+    {
+      "id": "butterfly",
+      "title": "One butterfly",
+      "fig": "butterfly",
+      "body": [
+        "The transform uses one small operation many times. That operation is a **butterfly**. The name comes from its shape in the diagram.",
+        "The butterfly reads two numbers from the array, `u` and `v`. It also reads a twiddle factor `omega`. Then it writes two numbers back.",
+        "The two results are **u + v*omega** and **u - v*omega**. The butterfly reduces both results mod {{q}}.",
+        "One butterfly needs one multiplication, one addition and one subtraction. This arrangement is the *Cooley-Tukey* butterfly, and the forward transform uses it."
+      ]
+    },
+    {
+      "id": "stages",
+      "title": "{{logN}} stages of butterflies",
+      "fig": "stages",
+      "body": [
+        "{{halfN}} butterflies make one **stage**. {{logN}} stages complete the transform.",
+        "Each stage uses a different stride. The stride is the distance between the two slots of a pair. The first stage uses a stride of {{firstStride}}. Each stage then makes the stride two times smaller, down to 1 at the last stage. Each stage touches each slot one time.",
+        "One transform therefore costs {{halfN}} butterflies x {{logN}} stages = **{{totalBf}} multiplications**. That count grows as N log N. A direct product of two polynomials grows as N squared, which is {{NN}} at this size. Step 12 compares the two complete methods.",
+        "The source code has one more property. OpenFHE writes the last stage as a separate loop, outside the main loop. Engineers call this method *peeling*. The mathematics is the same, but the code is different. The simulator shows where this happens."
+      ]
+    },
+    {
+      "id": "bitrev",
+      "title": "The output is not in numerical order",
+      "fig": "bitrev",
+      "body": [
+        "The array holds the {{N}} values after the last stage. The order is different from the usual one.",
+        "Slot `p` holds the value at **ψ^(2·brev(p)+1)**. The function `brev` reverses the bits of `p`.",
+        "OpenFHE does not correct this order. A sort operation costs time and gives no benefit. Only two operations use this output. One multiplication for each point does not depend on the order. The inverse transform expects exactly this order.",
+        "The order therefore stays. Many readers of FHE code find this confusing. The value form of a polynomial has a permuted order, and every later operation uses the same permutation."
+      ]
+    },
+    {
+      "id": "inverse",
+      "title": "The inverse transform",
+      "fig": "gs",
+      "body": [
+        "The inverse transform changes values back into coefficients. It uses the same diagram in the opposite direction. Its butterfly is the mirror image.",
+        "The two results are **u + v** and **(u - v) * omega**. The multiplication is now on the difference. The twiddles are powers of ψ⁻¹ ({{psiInv}}), not powers of ψ. This arrangement is the *Gentleman-Sande* butterfly.",
+        "The distances are also in the opposite order. Adjacent slots come first. The largest distance comes last.",
+        "The last operation divides each value by {{N}}. The modulus makes this a multiplication by N⁻¹ = {{nInv}}.",
+        "OpenFHE puts part of this division into the twiddle of the last stage. This method saves {{halfN}} multiplications. That twiddle is therefore not a simple power of ψ⁻¹. The simulator shows this."
+      ]
+    },
+    {
+      "id": "roundtrip",
+      "title": "The test of the round trip",
+      "fig": "roundtrip",
+      "body": [
+        "A forward transform and then an inverse transform give the original values. The result is exact, not approximate.",
+        "This calculation uses no floating point. Each value is an integer mod {{q}}. The round trip is therefore exact to the bit.",
+        "FHE uses the NTT and not a floating-point FFT for this reason. An approximation makes the ciphertext incorrect."
+      ]
+    },
+    {
+      "id": "payoff",
+      "title": "The result",
+      "fig": "payoff",
+      "body": [
+        "The complete method has four parts: a transform of `a`, a transform of `b`, one multiplication for each point, and an inverse transform of the result.",
+        "The result is the correct product of the two polynomials in this ring. The selection of ψ gives the correct minus sign with no extra work.",
+        "This operation is the basis of BGV, BFV and CKKS in OpenFHE.",
+        "**Transform** shows one butterfly at a time, with the OpenFHE source code. **Roots of unity** shows the origin of the evaluation points. **Why NTT** compares the two methods of multiplication."
+      ]
+    }
+  ]
+}

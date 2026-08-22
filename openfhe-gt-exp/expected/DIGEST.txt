@@ -1,0 +1,632 @@
+# One line per recorded vector: <config>\t<key>\t<values>
+# Compared against docs/data/traces/*.json by tools/13_check_gt.py
+n4-b5-q17	params	N=4 M=8 bits=5 q=17 psi=2 psiInv=9 nInv=13 brevBits=2
+n4-b5-q17	fwd-table	1 4 2 8
+n4-b5-q17	inv-table	1 13 9 15
+n4-b5-q17	coi-table	1 9 13
+n4-b5-q17	omega1Inv	16
+n4-b5-q17	case delta0 input	1 0 0 0
+n4-b5-q17	case delta0 forward	1 1 1 1
+n4-b5-q17	case delta0 inverse	1 0 0 0
+n4-b5-q17	case delta1 input	0 1 0 0
+n4-b5-q17	case delta1 forward	2 15 8 9
+n4-b5-q17	case delta1 inverse	0 1 0 0
+n4-b5-q17	case ramp input	0 1 2 3
+n4-b5-q17	case ramp forward	0 16 6 12
+n4-b5-q17	case ramp inverse	0 1 2 3
+n4-b5-q17	case ones input	1 1 1 1
+n4-b5-q17	case ones forward	15 12 7 4
+n4-b5-q17	case ones inverse	1 1 1 1
+n4-b5-q17	case sparse input	3 0 0 5
+n4-b5-q17	case sparse forward	9 14 13 10
+n4-b5-q17	case sparse inverse	3 0 0 5
+n4-b5-q17	case random input	13 9 16 5
+n4-b5-q17	case random forward	16 2 14 3
+n4-b5-q17	case random inverse	13 9 16 5
+n4-b5-q17	case nearmax input	16 16 16 16
+n4-b5-q17	case nearmax forward	2 5 10 13
+n4-b5-q17	case nearmax inverse	16 16 16 16
+n4-b5-q17	conv square a	0 1 0 0
+n4-b5-q17	conv square b	0 1 0 0
+n4-b5-q17	conv square product	0 0 1 0
+n4-b5-q17	conv wrap a	0 0 0 1
+n4-b5-q17	conv wrap b	0 1 0 0
+n4-b5-q17	conv wrap product	16 0 0 0
+n4-b5-q17	conv random a	4 3 11 16
+n4-b5-q17	conv random b	12 10 5 2
+n4-b5-q17	conv random product	14 8 14 2
+n8-b5-q17	params	N=8 M=16 bits=5 q=17 psi=3 psiInv=6 nInv=15 brevBits=3
+n8-b5-q17	fwd-table	1 13 9 15 3 5 10 11
+n8-b5-q17	inv-table	1 4 2 8 6 7 12 14
+n8-b5-q17	coi-table	1 9 13 15
+n8-b5-q17	omega1Inv	9
+n8-b5-q17	case delta0 input	1 0 0 0 0 0 0 0
+n8-b5-q17	case delta0 forward	1 1 1 1 1 1 1 1
+n8-b5-q17	case delta0 inverse	1 0 0 0 0 0 0 0
+n8-b5-q17	case delta1 input	0 1 0 0 0 0 0 0
+n8-b5-q17	case delta1 forward	3 14 5 12 10 7 11 6
+n8-b5-q17	case delta1 inverse	0 1 0 0 0 0 0 0
+n8-b5-q17	case ramp input	0 1 2 3 4 5 6 7
+n8-b5-q17	case ramp forward	6 8 5 2 13 0 12 5
+n8-b5-q17	case ramp inverse	0 1 2 3 4 5 6 7
+n8-b5-q17	case ones input	1 1 1 1 1 1 1 1
+n8-b5-q17	case ones forward	16 9 8 6 13 11 10 3
+n8-b5-q17	case ones inverse	1 1 1 1 1 1 1 1
+n8-b5-q17	case sparse input	3 0 0 0 0 0 0 5
+n8-b5-q17	case sparse forward	7 16 2 4 11 12 1 5
+n8-b5-q17	case sparse inverse	3 0 0 0 0 0 0 5
+n8-b5-q17	case random input	6 14 13 2 7 1 3 12
+n8-b5-q17	case random forward	16 9 15 8 14 5 5 10
+n8-b5-q17	case random inverse	6 14 13 2 7 1 3 12
+n8-b5-q17	case nearmax input	16 16 16 16 16 16 16 16
+n8-b5-q17	case nearmax forward	1 8 9 11 4 6 7 14
+n8-b5-q17	case nearmax inverse	16 16 16 16 16 16 16 16
+n8-b5-q17	conv square a	0 1 0 0 0 0 0 0
+n8-b5-q17	conv square b	0 1 0 0 0 0 0 0
+n8-b5-q17	conv square product	0 0 1 0 0 0 0 0
+n8-b5-q17	conv wrap a	0 0 0 0 0 0 0 1
+n8-b5-q17	conv wrap b	0 1 0 0 0 0 0 0
+n8-b5-q17	conv wrap product	16 0 0 0 0 0 0 0
+n8-b5-q17	conv random a	4 5 4 13 13 5 14 13
+n8-b5-q17	conv random b	0 0 8 4 8 10 5 6
+n8-b5-q17	conv random product	9 6 15 15 7 0 10 13
+n4-b6-q41	params	N=4 M=8 bits=6 q=41 psi=3 psiInv=14 nInv=31 brevBits=2
+n4-b6-q41	fwd-table	1 9 3 27
+n4-b6-q41	inv-table	1 32 14 38
+n4-b6-q41	coi-table	1 21 31
+n4-b6-q41	omega1Inv	8
+n4-b6-q41	case delta0 input	1 0 0 0
+n4-b6-q41	case delta0 forward	1 1 1 1
+n4-b6-q41	case delta0 inverse	1 0 0 0
+n4-b6-q41	case delta1 input	0 1 0 0
+n4-b6-q41	case delta1 forward	3 38 27 14
+n4-b6-q41	case delta1 inverse	0 1 0 0
+n4-b6-q41	case ramp input	0 1 2 3
+n4-b6-q41	case ramp forward	20 16 18 28
+n4-b6-q41	case ramp inverse	0 1 2 3
+n4-b6-q41	case ones input	1 1 1 1
+n4-b6-q41	case ones forward	40 21 22 3
+n4-b6-q41	case ones inverse	1 1 1 1
+n4-b6-q41	case sparse input	3 0 0 5
+n4-b6-q41	case sparse forward	15 32 18 29
+n4-b6-q41	case sparse inverse	3 0 0 5
+n4-b6-q41	case random input	15 22 6 25
+n4-b6-q41	case random forward	31 25 15 30
+n4-b6-q41	case random inverse	15 22 6 25
+n4-b6-q41	case nearmax input	40 40 40 40
+n4-b6-q41	case nearmax forward	1 20 19 38
+n4-b6-q41	case nearmax inverse	40 40 40 40
+n4-b6-q41	conv square a	0 1 0 0
+n4-b6-q41	conv square b	0 1 0 0
+n4-b6-q41	conv square product	0 0 1 0
+n4-b6-q41	conv wrap a	0 0 0 1
+n4-b6-q41	conv wrap b	0 1 0 0
+n4-b6-q41	conv wrap product	40 0 0 0
+n4-b6-q41	conv random a	18 24 12 3
+n4-b6-q41	conv random b	39 28 20 15
+n4-b6-q41	conv random product	18 11 20 14
+n4-b7-q113	params	N=4 M=8 bits=7 q=113 psi=18 psiInv=44 nInv=85 brevBits=2
+n4-b7-q113	fwd-table	1 98 18 69
+n4-b7-q113	inv-table	1 15 44 95
+n4-b7-q113	coi-table	1 57 85
+n4-b7-q113	omega1Inv	32
+n4-b7-q113	case delta0 input	1 0 0 0
+n4-b7-q113	case delta0 forward	1 1 1 1
+n4-b7-q113	case delta0 inverse	1 0 0 0
+n4-b7-q113	case delta1 input	0 1 0 0
+n4-b7-q113	case delta1 forward	18 95 69 44
+n4-b7-q113	case delta1 inverse	0 1 0 0
+n4-b7-q113	case ramp input	0 1 2 3
+n4-b7-q113	case ramp forward	82 84 40 20
+n4-b7-q113	case ramp inverse	0 1 2 3
+n4-b7-q113	case ones input	1 1 1 1
+n4-b7-q113	case ones forward	73 12 103 42
+n4-b7-q113	case ones inverse	1 1 1 1
+n4-b7-q113	case sparse input	3 0 0 5
+n4-b7-q113	case sparse forward	9 110 93 26
+n4-b7-q113	case sparse inverse	3 0 0 5
+n4-b7-q113	case random input	51 63 44 48
+n4-b7-q113	case random forward	108 30 46 20
+n4-b7-q113	case random inverse	51 63 44 48
+n4-b7-q113	case nearmax input	112 112 112 112
+n4-b7-q113	case nearmax forward	40 101 10 71
+n4-b7-q113	case nearmax inverse	112 112 112 112
+n4-b7-q113	conv square a	0 1 0 0
+n4-b7-q113	conv square b	0 1 0 0
+n4-b7-q113	conv square product	0 0 1 0
+n4-b7-q113	conv wrap a	0 0 0 1
+n4-b7-q113	conv wrap b	0 1 0 0
+n4-b7-q113	conv wrap product	112 0 0 0
+n4-b7-q113	conv random a	60 17 23 91
+n4-b7-q113	conv random b	8 41 34 69
+n4-b7-q113	conv random product	105 62 32 61
+n8-b7-q113	params	N=8 M=16 bits=7 q=113 psi=35 psiInv=42 nInv=99 brevBits=3
+n8-b7-q113	fwd-table	1 98 95 44 35 40 48 71
+n8-b7-q113	inv-table	1 15 69 18 42 65 73 78
+n8-b7-q113	coi-table	1 57 85 99
+n8-b7-q113	omega1Inv	16
+n8-b7-q113	case delta0 input	1 0 0 0 0 0 0 0
+n8-b7-q113	case delta0 forward	1 1 1 1 1 1 1 1
+n8-b7-q113	case delta0 inverse	1 0 0 0 0 0 0 0
+n8-b7-q113	case delta1 input	0 1 0 0 0 0 0 0
+n8-b7-q113	case delta1 forward	35 78 40 73 48 65 71 42
+n8-b7-q113	case delta1 inverse	0 1 0 0 0 0 0 0
+n8-b7-q113	case ramp input	0 1 2 3 4 5 6 7
+n8-b7-q113	case ramp forward	27 83 39 63 21 59 78 82
+n8-b7-q113	case ramp inverse	0 1 2 3 4 5 6 7
+n8-b7-q113	case ones input	1 1 1 1 1 1 1 1
+n8-b7-q113	case ones forward	93 44 55 91 24 60 71 22
+n8-b7-q113	case ones inverse	1 1 1 1 1 1 1 1
+n8-b7-q113	case sparse input	3 0 0 0 0 0 0 5
+n8-b7-q113	case sparse forward	19 100 17 102 90 29 65 54
+n8-b7-q113	case sparse inverse	3 0 0 0 0 0 0 5
+n8-b7-q113	case random input	43 39 71 38 13 38 74 76
+n8-b7-q113	case random forward	66 83 67 80 89 16 100 69
+n8-b7-q113	case random inverse	43 39 71 38 13 38 74 76
+n8-b7-q113	case nearmax input	112 112 112 112 112 112 112 112
+n8-b7-q113	case nearmax forward	20 69 58 22 89 53 42 91
+n8-b7-q113	case nearmax inverse	112 112 112 112 112 112 112 112
+n8-b7-q113	conv square a	0 1 0 0 0 0 0 0
+n8-b7-q113	conv square b	0 1 0 0 0 0 0 0
+n8-b7-q113	conv square product	0 0 1 0 0 0 0 0
+n8-b7-q113	conv wrap a	0 0 0 0 0 0 0 1
+n8-b7-q113	conv wrap b	0 1 0 0 0 0 0 0
+n8-b7-q113	conv wrap product	112 0 0 0 0 0 0 0
+n8-b7-q113	conv random a	74 99 92 102 21 83 83 56
+n8-b7-q113	conv random b	28 61 25 81 10 111 11 25
+n8-b7-q113	conv random product	38 38 111 76 77 6 38 57
+n16-b7-q97	params	N=16 M=32 bits=7 q=97 psi=19 psiInv=46 nInv=91 brevBits=4
+n16-b7-q97	fwd-table	1 75 50 64 70 12 8 18 19 67 77 52 69 34 55 51
+n16-b7-q97	inv-table	1 22 33 47 79 89 85 27 46 42 63 28 45 20 30 78
+n16-b7-q97	coi-table	1 49 73 85 91
+n16-b7-q97	omega1Inv	62
+n16-b7-q97	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b7-q97	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	case delta1 forward	19 78 67 30 77 20 52 45 69 28 34 63 55 42 51 46
+n16-b7-q97	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b7-q97	case ramp forward	13 72 27 49 55 96 18 8 60 8 32 51 36 67 67 20
+n16-b7-q97	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b7-q97	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b7-q97	case ones forward	43 68 47 20 74 5 38 22 77 61 94 25 79 52 31 56
+n16-b7-q97	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b7-q97	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b7-q97	case sparse forward	64 39 84 19 76 27 57 46 69 34 0 6 47 56 1 5
+n16-b7-q97	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b7-q97	case random input	39 68 49 82 16 7 85 54 50 83 9 59 63 43 93 38
+n16-b7-q97	case random forward	47 73 82 41 16 25 4 51 34 26 17 29 20 14 62 83
+n16-b7-q97	case random inverse	39 68 49 82 16 7 85 54 50 83 9 59 63 43 93 38
+n16-b7-q97	case nearmax input	96 96 96 96 96 96 96 96 96 96 96 96 96 96 96 96
+n16-b7-q97	case nearmax forward	54 29 50 77 23 92 59 75 20 36 3 72 18 45 66 41
+n16-b7-q97	case nearmax inverse	96 96 96 96 96 96 96 96 96 96 96 96 96 96 96 96
+n16-b7-q97	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n16-b7-q97	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	conv wrap product	96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b7-q97	conv random a	31 5 32 86 43 30 43 4 31 82 58 8 13 34 27 21
+n16-b7-q97	conv random b	75 69 57 72 81 68 81 66 54 80 96 93 88 25 27 31
+n16-b7-q97	conv random product	66 2 60 52 83 64 24 71 8 22 75 72 35 10 9 15
+n4-b8-q241	params	N=4 M=8 bits=8 q=241 psi=8 psiInv=211 nInv=181 brevBits=2
+n4-b8-q241	fwd-table	1 64 8 30
+n4-b8-q241	inv-table	1 177 211 233
+n4-b8-q241	coi-table	1 121 181
+n4-b8-q241	omega1Inv	225
+n4-b8-q241	case delta0 input	1 0 0 0
+n4-b8-q241	case delta0 forward	1 1 1 1
+n4-b8-q241	case delta0 inverse	1 0 0 0
+n4-b8-q241	case delta1 input	0 1 0 0
+n4-b8-q241	case delta1 forward	8 233 30 211
+n4-b8-q241	case delta1 inverse	0 1 0 0
+n4-b8-q241	case ramp input	0 1 2 3
+n4-b8-q241	case ramp forward	226 30 167 59
+n4-b8-q241	case ramp inverse	0 1 2 3
+n4-b8-q241	case ones input	1 1 1 1
+n4-b8-q241	case ones forward	103 27 216 140
+n4-b8-q241	case ones inverse	1 1 1 1
+n4-b8-q241	case sparse input	3 0 0 5
+n4-b8-q241	case sparse forward	153 94 43 204
+n4-b8-q241	case sparse inverse	3 0 0 5
+n4-b8-q241	case random input	135 1 168 125
+n4-b8-q241	case random forward	185 140 53 162
+n4-b8-q241	case random inverse	135 1 168 125
+n4-b8-q241	case nearmax input	240 240 240 240
+n4-b8-q241	case nearmax forward	138 214 25 101
+n4-b8-q241	case nearmax inverse	240 240 240 240
+n4-b8-q241	conv square a	0 1 0 0
+n4-b8-q241	conv square b	0 1 0 0
+n4-b8-q241	conv square product	0 0 1 0
+n4-b8-q241	conv wrap a	0 0 0 1
+n4-b8-q241	conv wrap b	0 1 0 0
+n4-b8-q241	conv wrap product	240 0 0 0
+n4-b8-q241	conv random a	134 194 128 220
+n4-b8-q241	conv random b	51 7 76 166
+n4-b8-q241	conv random product	235 97 107 181
+n8-b8-q241	params	N=8 M=16 bits=8 q=241 psi=44 psiInv=126 nInv=211 brevBits=3
+n8-b8-q241	fwd-table	1 64 8 30 44 165 111 115
+n8-b8-q241	inv-table	1 177 211 233 126 130 76 197
+n8-b8-q241	coi-table	1 121 181 211
+n8-b8-q241	omega1Inv	233
+n8-b8-q241	case delta0 input	1 0 0 0 0 0 0 0
+n8-b8-q241	case delta0 forward	1 1 1 1 1 1 1 1
+n8-b8-q241	case delta0 inverse	1 0 0 0 0 0 0 0
+n8-b8-q241	case delta1 input	0 1 0 0 0 0 0 0
+n8-b8-q241	case delta1 forward	44 197 165 76 111 130 115 126
+n8-b8-q241	case delta1 inverse	0 1 0 0 0 0 0 0
+n8-b8-q241	case ramp input	0 1 2 3 4 5 6 7
+n8-b8-q241	case ramp forward	49 132 196 165 170 16 145 91
+n8-b8-q241	case ramp inverse	0 1 2 3 4 5 6 7
+n8-b8-q241	case ones input	1 1 1 1 1 1 1 1
+n8-b8-q241	case ones forward	56 150 144 151 92 99 93 187
+n8-b8-q241	case ones inverse	1 1 1 1 1 1 1 1
+n8-b8-q241	case sparse input	3 0 0 0 0 0 0 5
+n8-b8-q241	case sparse forward	96 151 76 171 105 142 223 24
+n8-b8-q241	case sparse inverse	3 0 0 0 0 0 0 5
+n8-b8-q241	case random input	134 4 2 6 206 41 229 156
+n8-b8-q241	case random forward	202 200 224 108 166 172 92 149
+n8-b8-q241	case random inverse	134 4 2 6 206 41 229 156
+n8-b8-q241	case nearmax input	240 240 240 240 240 240 240 240
+n8-b8-q241	case nearmax forward	185 91 97 90 149 142 148 54
+n8-b8-q241	case nearmax inverse	240 240 240 240 240 240 240 240
+n8-b8-q241	conv square a	0 1 0 0 0 0 0 0
+n8-b8-q241	conv square b	0 1 0 0 0 0 0 0
+n8-b8-q241	conv square product	0 0 1 0 0 0 0 0
+n8-b8-q241	conv wrap a	0 0 0 0 0 0 0 1
+n8-b8-q241	conv wrap b	0 1 0 0 0 0 0 0
+n8-b8-q241	conv wrap product	240 0 0 0 0 0 0 0
+n8-b8-q241	conv random a	220 227 204 198 110 124 100 98
+n8-b8-q241	conv random b	26 112 100 106 142 33 16 123
+n8-b8-q241	conv random product	201 168 103 75 158 172 4 200
+n16-b8-q193	params	N=16 M=32 bits=8 q=193 psi=8 psiInv=169 nInv=181 brevBits=4
+n16-b8-q193	fwd-table	1 112 43 184 64 27 50 3 8 124 151 121 126 23 14 24
+n16-b8-q193	inv-table	1 81 9 150 190 143 166 129 169 179 170 67 72 42 69 185
+n16-b8-q193	coi-table	1 97 145 169 181
+n16-b8-q193	omega1Inv	186
+n16-b8-q193	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b8-q193	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	case delta1 forward	8 185 124 69 151 42 121 72 126 67 23 170 14 179 24 169
+n16-b8-q193	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b8-q193	case ramp forward	65 54 80 167 95 24 97 24 122 139 182 16 104 79 45 58
+n16-b8-q193	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b8-q193	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b8-q193	case ones forward	110 86 182 17 18 160 119 19 176 76 35 177 178 13 109 85
+n16-b8-q193	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b8-q193	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b8-q193	case sparse forward	123 76 73 126 118 81 54 145 29 170 179 20 44 155 43 156
+n16-b8-q193	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b8-q193	case random input	149 59 160 185 86 44 9 13 113 105 68 76 143 148 25 146
+n16-b8-q193	case random forward	35 15 85 127 50 153 14 57 104 71 29 25 93 100 70 5
+n16-b8-q193	case random inverse	149 59 160 185 86 44 9 13 113 105 68 76 143 148 25 146
+n16-b8-q193	case nearmax input	192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192
+n16-b8-q193	case nearmax forward	83 107 11 176 175 33 74 174 17 117 158 16 15 180 84 108
+n16-b8-q193	case nearmax inverse	192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192
+n16-b8-q193	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n16-b8-q193	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	conv wrap product	192 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b8-q193	conv random a	23 13 22 178 73 124 9 1 44 175 156 13 120 56 58 22
+n16-b8-q193	conv random b	31 100 96 30 40 80 159 150 107 5 158 122 115 6 148 79
+n16-b8-q193	conv random product	108 81 70 166 30 43 167 47 118 137 64 18 12 63 109 76
+n32-b8-q193	params	N=32 M=64 bits=8 q=193 psi=11 psiInv=158 nInv=187 brevBits=5
+n32-b8-q193	fwd-table	1 112 150 9 166 64 3 143 121 42 8 124 14 24 170 126 11 74 106 99 89 125 33 29 173 76 88 13 154 71 133 35
+n32-b8-q193	inv-table	1 81 184 43 50 190 129 27 67 23 169 179 69 185 151 72 158 60 122 39 180 105 117 20 164 160 68 104 94 87 119 182
+n32-b8-q193	coi-table	1 97 145 169 181 187
+n32-b8-q193	omega1Inv	93
+n32-b8-q193	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b8-q193	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	case delta1 forward	11 182 74 119 106 87 99 94 89 104 125 68 33 160 29 164 173 20 76 117 88 105 13 180 154 39 71 122 133 60 35 158
+n32-b8-q193	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b8-q193	case ramp forward	163 32 181 108 94 2 131 56 67 0 40 176 59 68 91 191 15 15 30 93 39 141 27 12 180 77 129 20 134 161 123 47
+n32-b8-q193	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b8-q193	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b8-q193	case ones forward	77 161 74 157 136 184 63 166 57 163 28 144 12 159 124 103 92 71 36 183 51 167 32 138 29 132 11 59 38 121 34 118
+n32-b8-q193	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b8-q193	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b8-q193	case sparse forward	178 21 89 110 165 34 1 5 68 131 57 142 190 9 96 103 148 51 168 31 49 150 62 137 112 87 147 52 180 19 58 141
+n32-b8-q193	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b8-q193	case random input	31 31 54 167 104 33 34 136 107 97 184 92 66 92 121 95 48 34 75 132 164 142 42 133 114 57 120 124 137 187 9 169
+n32-b8-q193	case random forward	149 8 35 86 127 8 54 100 96 63 68 118 184 168 65 70 144 78 146 144 182 144 53 107 157 129 7 125 167 161 50 115
+n32-b8-q193	case random inverse	31 31 54 167 104 33 34 136 107 97 184 92 66 92 121 95 48 34 75 132 164 142 42 133 114 57 120 124 137 187 9 169
+n32-b8-q193	case nearmax input	192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192
+n32-b8-q193	case nearmax forward	116 32 119 36 57 9 130 27 136 30 165 49 181 34 69 90 101 122 157 10 142 26 161 55 164 61 182 134 155 72 159 75
+n32-b8-q193	case nearmax inverse	192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192 192
+n32-b8-q193	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n32-b8-q193	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	conv wrap product	192 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b8-q193	conv random a	92 34 130 25 62 130 37 52 72 176 122 106 114 133 58 16 77 86 24 183 19 107 88 102 31 59 40 64 129 143 135 152
+n32-b8-q193	conv random b	68 163 29 30 20 170 97 160 112 102 28 125 42 175 85 79 165 52 171 132 113 58 79 92 155 55 184 112 27 125 72 178
+n32-b8-q193	conv random product	186 91 191 189 42 70 65 51 120 104 190 32 98 79 121 129 42 130 48 97 137 155 121 93 71 44 161 15 191 41 136 94
+n4-b9-q457	params	N=4 M=8 bits=9 q=457 psi=170 psiInv=207 nInv=343 brevBits=2
+n4-b9-q457	fwd-table	1 109 170 250
+n4-b9-q457	inv-table	1 348 207 287
+n4-b9-q457	coi-table	1 229 343
+n4-b9-q457	omega1Inv	87
+n4-b9-q457	case delta0 input	1 0 0 0
+n4-b9-q457	case delta0 forward	1 1 1 1
+n4-b9-q457	case delta0 inverse	1 0 0 0
+n4-b9-q457	case delta1 input	0 1 0 0
+n4-b9-q457	case delta1 forward	170 287 250 207
+n4-b9-q457	case delta1 inverse	0 1 0 0
+n4-b9-q457	case ramp input	0 1 2 3
+n4-b9-q457	case ramp forward	224 212 85 393
+n4-b9-q457	case ramp inverse	0 1 2 3
+n4-b9-q457	case ones input	1 1 1 1
+n4-b9-q457	case ones forward	73 147 312 386
+n4-b9-q457	case ones inverse	1 1 1 1
+n4-b9-q457	case sparse input	3 0 0 5
+n4-b9-q457	case sparse forward	339 124 396 67
+n4-b9-q457	case sparse inverse	3 0 0 5
+n4-b9-q457	case random input	375 212 241 135
+n4-b9-q457	case random forward	7 269 243 67
+n4-b9-q457	case random inverse	375 212 241 135
+n4-b9-q457	case nearmax input	456 456 456 456
+n4-b9-q457	case nearmax forward	384 310 145 71
+n4-b9-q457	case nearmax inverse	456 456 456 456
+n4-b9-q457	conv square a	0 1 0 0
+n4-b9-q457	conv square b	0 1 0 0
+n4-b9-q457	conv square product	0 0 1 0
+n4-b9-q457	conv wrap a	0 0 0 1
+n4-b9-q457	conv wrap b	0 1 0 0
+n4-b9-q457	conv wrap product	456 0 0 0
+n4-b9-q457	conv random a	380 128 349 152
+n4-b9-q457	conv random b	241 373 254 175
+n4-b9-q457	conv random product	157 242 236 304
+n8-b9-q449	params	N=8 M=16 bits=9 q=449 psi=35 psiInv=77 nInv=393 brevBits=3
+n8-b9-q449	fwd-table	1 67 327 357 35 100 220 372
+n8-b9-q449	inv-table	1 382 92 122 77 229 349 414
+n8-b9-q449	coi-table	1 225 337 393
+n8-b9-q449	omega1Inv	160
+n8-b9-q449	case delta0 input	1 0 0 0 0 0 0 0
+n8-b9-q449	case delta0 forward	1 1 1 1 1 1 1 1
+n8-b9-q449	case delta0 inverse	1 0 0 0 0 0 0 0
+n8-b9-q449	case delta1 input	0 1 0 0 0 0 0 0
+n8-b9-q449	case delta1 forward	35 414 100 349 220 229 372 77
+n8-b9-q449	case delta1 inverse	0 1 0 0 0 0 0 0
+n8-b9-q449	case ramp input	0 1 2 3 4 5 6 7
+n8-b9-q449	case ramp forward	128 163 66 266 16 310 420 427
+n8-b9-q449	case ramp inverse	0 1 2 3 4 5 6 7
+n8-b9-q449	case ones input	1 1 1 1 1 1 1 1
+n8-b9-q449	case ones forward	132 25 195 369 82 256 426 319
+n8-b9-q449	case ones inverse	1 1 1 1 1 1 1 1
+n8-b9-q449	case sparse input	3 0 0 0 0 0 0 5
+n8-b9-q449	case sparse forward	67 388 205 250 54 401 178 277
+n8-b9-q449	case sparse inverse	3 0 0 0 0 0 0 5
+n8-b9-q449	case random input	420 7 366 296 441 143 427 191
+n8-b9-q449	case random forward	213 58 198 414 239 312 370 209
+n8-b9-q449	case random inverse	420 7 366 296 441 143 427 191
+n8-b9-q449	case nearmax input	448 448 448 448 448 448 448 448
+n8-b9-q449	case nearmax forward	317 424 254 80 367 193 23 130
+n8-b9-q449	case nearmax inverse	448 448 448 448 448 448 448 448
+n8-b9-q449	conv square a	0 1 0 0 0 0 0 0
+n8-b9-q449	conv square b	0 1 0 0 0 0 0 0
+n8-b9-q449	conv square product	0 0 1 0 0 0 0 0
+n8-b9-q449	conv wrap a	0 0 0 0 0 0 0 1
+n8-b9-q449	conv wrap b	0 1 0 0 0 0 0 0
+n8-b9-q449	conv wrap product	448 0 0 0 0 0 0 0
+n8-b9-q449	conv random a	439 303 434 298 447 25 61 194
+n8-b9-q449	conv random b	205 429 343 162 38 276 162 166
+n8-b9-q449	conv random product	375 322 17 175 147 309 171 386
+n16-b9-q449	params	N=16 M=32 bits=9 q=449 psi=10 psiInv=45 nInv=421 brevBits=4
+n16-b9-q449	fwd-table	1 67 122 92 100 414 77 220 10 221 322 22 102 99 321 404
+n16-b9-q449	inv-table	1 382 357 327 229 372 35 349 45 128 350 347 427 127 228 439
+n16-b9-q449	coi-table	1 225 337 393 421
+n16-b9-q449	omega1Inv	80
+n16-b9-q449	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b9-q449	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	case delta1 forward	10 439 221 228 322 127 22 427 102 347 99 350 321 128 404 45
+n16-b9-q449	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b9-q449	case ramp forward	259 5 297 318 200 3 261 251 168 193 5 328 257 256 263 79
+n16-b9-q449	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b9-q449	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b9-q449	case ones forward	349 41 200 89 442 57 342 371 80 109 394 9 362 251 410 102
+n16-b9-q449	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b9-q449	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b9-q449	case sparse forward	227 228 261 194 49 406 64 391 113 342 266 189 210 245 53 402
+n16-b9-q449	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b9-q449	case random input	141 273 182 250 185 345 330 42 90 41 255 418 77 203 202 351
+n16-b9-q449	case random forward	199 262 147 359 94 57 278 378 317 345 362 256 66 138 237 108
+n16-b9-q449	case random inverse	141 273 182 250 185 345 330 42 90 41 255 418 77 203 202 351
+n16-b9-q449	case nearmax input	448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448
+n16-b9-q449	case nearmax forward	100 408 249 360 7 392 107 78 369 340 55 440 87 198 39 347
+n16-b9-q449	case nearmax inverse	448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448
+n16-b9-q449	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n16-b9-q449	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	conv wrap product	448 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b9-q449	conv random a	41 118 265 356 170 393 155 315 167 410 125 404 360 115 368 322
+n16-b9-q449	conv random b	365 269 331 412 10 292 328 329 366 155 42 277 89 195 378 59
+n16-b9-q449	conv random product	173 372 89 308 420 31 305 137 305 380 163 227 109 312 405 364
+n32-b9-q449	params	N=32 M=64 bits=9 q=449 psi=24 psiInv=131 nInv=435 brevBits=5
+n32-b9-q449	fwd-table	1 67 327 357 414 349 229 77 127 427 221 439 45 321 347 350 24 261 215 37 58 294 108 52 354 370 365 209 182 71 246 318
+n32-b9-q449	inv-table	1 382 92 122 372 220 100 35 99 102 128 404 10 228 22 322 131 203 378 267 240 84 79 95 397 341 155 391 412 234 188 425
+n32-b9-q449	coi-table	1 225 337 393 421 435
+n32-b9-q449	omega1Inv	40
+n32-b9-q449	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b9-q449	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	case delta1 forward	24 425 261 188 215 234 37 412 58 391 294 155 108 341 52 397 354 95 370 79 365 84 209 240 182 267 71 378 246 203 318 131
+n32-b9-q449	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b9-q449	case ramp forward	171 290 152 199 66 40 162 433 399 340 62 312 130 339 253 334 153 163 218 385 117 13 135 440 227 96 238 434 361 53 68 401
+n32-b9-q449	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b9-q449	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b9-q449	case ones forward	78 36 411 24 214 79 424 260 126 274 213 414 428 103 88 161 290 363 348 23 37 238 177 325 191 27 372 237 427 40 415 373
+n32-b9-q449	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b9-q449	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b9-q449	case sparse forward	246 209 335 120 358 97 15 440 150 305 32 423 57 398 426 29 263 192 94 361 126 329 293 162 188 267 180 275 410 45 123 332
+n32-b9-q449	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b9-q449	case random input	243 295 45 426 325 41 239 95 27 107 149 210 52 108 177 328 379 317 289 309 184 76 289 448 381 298 144 19 95 147 208 284
+n32-b9-q449	case random forward	238 108 437 10 40 339 401 17 120 2 46 269 187 382 78 259 258 318 193 181 224 14 346 14 270 438 128 304 386 436 397 38
+n32-b9-q449	case random inverse	243 295 45 426 325 41 239 95 27 107 149 210 52 108 177 328 379 317 289 309 184 76 289 448 381 298 144 19 95 147 208 284
+n32-b9-q449	case nearmax input	448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448
+n32-b9-q449	case nearmax forward	371 413 38 425 235 370 25 189 323 175 236 35 21 346 361 288 159 86 101 426 412 211 272 124 258 422 77 212 22 409 34 76
+n32-b9-q449	case nearmax inverse	448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448 448
+n32-b9-q449	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n32-b9-q449	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	conv wrap product	448 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b9-q449	conv random a	39 355 28 158 152 137 130 422 214 285 78 435 352 109 72 235 350 332 163 326 2 2 256 445 42 414 351 378 196 68 151 160
+n32-b9-q449	conv random b	110 122 248 2 297 145 45 150 69 382 25 436 327 314 308 297 421 135 214 21 237 241 222 146 206 28 435 391 422 69 264 140
+n32-b9-q449	conv random product	113 164 92 240 429 323 131 73 3 146 67 431 193 441 409 302 131 178 282 148 220 223 115 235 217 78 6 121 309 61 367 164
+n4-b10-q1009	params	N=4 M=8 bits=10 q=1009 psi=192 psiInv=247 nInv=757 brevBits=2
+n4-b10-q1009	fwd-table	1 540 192 762
+n4-b10-q1009	inv-table	1 469 247 817
+n4-b10-q1009	coi-table	1 505 757
+n4-b10-q1009	omega1Inv	874
+n4-b10-q1009	case delta0 input	1 0 0 0
+n4-b10-q1009	case delta0 forward	1 1 1 1
+n4-b10-q1009	case delta0 inverse	1 0 0 0
+n4-b10-q1009	case delta1 input	0 1 0 0
+n4-b10-q1009	case delta1 forward	192 817 762 247
+n4-b10-q1009	case delta1 inverse	0 1 0 0
+n4-b10-q1009	case ramp input	0 1 2 3
+n4-b10-q1009	case ramp forward	531 620 258 609
+n4-b10-q1009	case ramp inverse	0 1 2 3
+n4-b10-q1009	case ones input	1 1 1 1
+n4-b10-q1009	case ones forward	486 596 415 525
+n4-b10-q1009	case ones inverse	1 1 1 1
+n4-b10-q1009	case sparse input	3 0 0 5
+n4-b10-q1009	case sparse forward	786 229 963 52
+n4-b10-q1009	case sparse inverse	3 0 0 5
+n4-b10-q1009	case random input	743 283 61 762
+n4-b10-q1009	case random forward	705 67 819 372
+n4-b10-q1009	case random inverse	743 283 61 762
+n4-b10-q1009	case nearmax input	1008 1008 1008 1008
+n4-b10-q1009	case nearmax forward	523 413 594 484
+n4-b10-q1009	case nearmax inverse	1008 1008 1008 1008
+n4-b10-q1009	conv square a	0 1 0 0
+n4-b10-q1009	conv square b	0 1 0 0
+n4-b10-q1009	conv square product	0 0 1 0
+n4-b10-q1009	conv wrap a	0 0 0 1
+n4-b10-q1009	conv wrap b	0 1 0 0
+n4-b10-q1009	conv wrap product	1008 0 0 0
+n4-b10-q1009	conv random a	510 583 384 538
+n4-b10-q1009	conv random b	271 238 342 94
+n4-b10-q1009	conv random product	611 759 399 196
+n8-b10-q1009	params	N=8 M=16 bits=10 q=1009 psi=62 psiInv=830 nInv=883 brevBits=3
+n8-b10-q1009	fwd-table	1 540 817 247 62 183 204 179
+n8-b10-q1009	inv-table	1 469 762 192 830 805 826 947
+n8-b10-q1009	coi-table	1 505 757 883
+n8-b10-q1009	omega1Inv	437
+n8-b10-q1009	case delta0 input	1 0 0 0 0 0 0 0
+n8-b10-q1009	case delta0 forward	1 1 1 1 1 1 1 1
+n8-b10-q1009	case delta0 inverse	1 0 0 0 0 0 0 0
+n8-b10-q1009	case delta1 input	0 1 0 0 0 0 0 0
+n8-b10-q1009	case delta1 forward	62 947 183 826 204 805 179 830
+n8-b10-q1009	case delta1 inverse	0 1 0 0 0 0 0 0
+n8-b10-q1009	case ramp input	0 1 2 3 4 5 6 7
+n8-b10-q1009	case ramp forward	46 416 817 298 613 814 680 352
+n8-b10-q1009	case ramp inverse	0 1 2 3 4 5 6 7
+n8-b10-q1009	case ones input	1 1 1 1 1 1 1 1
+n8-b10-q1009	case ones forward	215 977 632 340 671 379 34 796
+n8-b10-q1009	case ones inverse	1 1 1 1 1 1 1 1
+n8-b10-q1009	case sparse input	3 0 0 0 0 0 0 5
+n8-b10-q1009	case sparse forward	898 117 14 1001 918 97 313 702
+n8-b10-q1009	case sparse inverse	3 0 0 0 0 0 0 5
+n8-b10-q1009	case random input	50 17 893 570 239 479 963 816
+n8-b10-q1009	case random forward	701 855 661 642 938 66 166 407
+n8-b10-q1009	case random inverse	50 17 893 570 239 479 963 816
+n8-b10-q1009	case nearmax input	1008 1008 1008 1008 1008 1008 1008 1008
+n8-b10-q1009	case nearmax forward	794 32 377 669 338 630 975 213
+n8-b10-q1009	case nearmax inverse	1008 1008 1008 1008 1008 1008 1008 1008
+n8-b10-q1009	conv square a	0 1 0 0 0 0 0 0
+n8-b10-q1009	conv square b	0 1 0 0 0 0 0 0
+n8-b10-q1009	conv square product	0 0 1 0 0 0 0 0
+n8-b10-q1009	conv wrap a	0 0 0 0 0 0 0 1
+n8-b10-q1009	conv wrap b	0 1 0 0 0 0 0 0
+n8-b10-q1009	conv wrap product	1008 0 0 0 0 0 0 0
+n8-b10-q1009	conv random a	972 806 198 940 309 308 496 424
+n8-b10-q1009	conv random b	405 225 337 130 48 292 951 699
+n8-b10-q1009	conv random product	542 545 55 826 297 397 152 534
+n16-b10-q929	params	N=16 M=32 bits=10 q=929 psi=170 psiInv=388 nInv=871 brevBits=4
+n16-b10-q929	fwd-table	1 324 911 671 101 209 40 883 170 269 656 732 448 228 297 541
+n16-b10-q929	inv-table	1 605 258 18 46 889 720 828 388 632 701 481 197 273 660 759
+n16-b10-q929	coi-table	1 465 697 813 871
+n16-b10-q929	omega1Inv	212
+n16-b10-q929	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b10-q929	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	case delta1 forward	170 759 269 660 656 273 732 197 448 481 228 701 297 632 541 388
+n16-b10-q929	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b10-q929	case ramp forward	88 678 35 611 445 415 864 878 41 786 759 705 620 786 194 456
+n16-b10-q929	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+n16-b10-q929	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b10-q929	case ones forward	907 728 825 523 217 444 122 692 239 809 487 714 408 106 203 24
+n16-b10-q929	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n16-b10-q929	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b10-q929	case sparse forward	850 85 559 376 214 721 385 550 876 59 496 439 419 516 853 82
+n16-b10-q929	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n16-b10-q929	case random input	226 506 147 347 396 501 588 248 812 524 650 322 735 309 92 297
+n16-b10-q929	case random forward	740 410 470 768 924 402 373 98 341 804 551 463 882 531 355 149
+n16-b10-q929	case random inverse	226 506 147 347 396 501 588 248 812 524 650 322 735 309 92 297
+n16-b10-q929	case nearmax input	928 928 928 928 928 928 928 928 928 928 928 928 928 928 928 928
+n16-b10-q929	case nearmax forward	22 201 104 406 712 485 807 237 690 120 442 215 521 823 726 905
+n16-b10-q929	case nearmax inverse	928 928 928 928 928 928 928 928 928 928 928 928 928 928 928 928
+n16-b10-q929	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n16-b10-q929	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	conv wrap product	928 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n16-b10-q929	conv random a	475 427 587 276 430 263 831 148 578 292 767 52 747 712 351 619
+n16-b10-q929	conv random b	53 114 418 683 820 734 496 348 733 278 291 523 522 409 87 99
+n16-b10-q929	conv random product	103 277 478 539 138 349 557 336 524 248 732 76 802 83 263 272
+n32-b10-q769	params	N=32 M=64 bits=10 q=769 psi=12 psiInv=705 nInv=745 brevBits=5
+n32-b10-q769	fwd-table	1 62 729 596 742 633 311 57 144 469 392 465 726 410 182 518 12 744 289 231 445 675 656 684 190 245 90 197 253 306 646 64
+n32-b10-q769	inv-table	1 707 173 40 712 458 136 27 251 587 359 43 304 377 300 625 705 123 463 516 572 679 524 579 85 113 94 324 538 480 25 757
+n32-b10-q769	coi-table	1 385 577 673 721 745
+n32-b10-q769	omega1Inv	719
+n32-b10-q769	case delta0 input	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	case delta0 forward	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b10-q769	case delta0 inverse	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	case delta1 input	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	case delta1 forward	12 757 744 25 289 480 231 538 445 324 675 94 656 113 684 85 190 579 245 524 90 679 197 572 253 516 306 463 646 123 64 705
+n32-b10-q769	case delta1 inverse	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	case ramp input	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b10-q769	case ramp forward	10 471 281 701 436 497 659 634 737 424 611 641 385 441 122 363 469 654 144 322 591 529 580 14 321 270 253 41 223 488 84 677
+n32-b10-q769	case ramp inverse	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+n32-b10-q769	case ones input	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b10-q769	case ones forward	629 710 355 64 518 297 662 179 336 669 340 339 27 563 465 238 533 306 208 744 432 431 102 435 592 109 474 253 707 416 61 142
+n32-b10-q769	case ones inverse	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+n32-b10-q769	case sparse input	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b10-q769	case sparse forward	323 452 157 618 764 11 499 276 219 556 453 322 459 316 184 591 347 428 207 568 302 473 690 85 389 386 679 96 647 128 63 712
+n32-b10-q769	case sparse inverse	3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
+n32-b10-q769	case random input	659 726 28 630 101 33 415 531 662 41 658 34 387 469 391 261 506 689 172 756 90 433 221 193 558 253 463 533 707 257 262 507
+n32-b10-q769	case random forward	365 115 232 485 397 338 451 303 502 109 714 697 564 41 401 11 383 346 714 360 49 338 557 224 20 616 533 10 271 524 468 722
+n32-b10-q769	case random inverse	659 726 28 630 101 33 415 531 662 41 658 34 387 469 391 261 506 689 172 756 90 433 221 193 558 253 463 533 707 257 262 507
+n32-b10-q769	case nearmax input	768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768
+n32-b10-q769	case nearmax forward	140 59 414 705 251 472 107 590 433 100 429 430 742 206 304 531 236 463 561 25 337 338 667 334 177 660 295 516 62 353 708 627
+n32-b10-q769	case nearmax inverse	768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768 768
+n32-b10-q769	conv square a	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	conv square b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	conv square product	0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	conv wrap a	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+n32-b10-q769	conv wrap b	0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	conv wrap product	768 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+n32-b10-q769	conv random a	356 596 242 500 768 527 96 527 216 281 736 273 432 12 505 95 431 277 660 605 579 526 639 1 396 112 750 563 378 41 716 690
+n32-b10-q769	conv random b	618 678 339 193 58 397 178 727 531 363 375 359 699 159 138 641 572 743 450 722 226 592 63 59 107 11 49 522 700 543 294 760
+n32-b10-q769	conv random product	88 292 416 98 643 303 711 557 699 318 599 358 632 645 703 243 492 377 644 617 332 750 247 385 283 196 648 150 550 634 119 80

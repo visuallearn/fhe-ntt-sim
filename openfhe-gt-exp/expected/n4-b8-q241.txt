@@ -1,0 +1,225 @@
+OpenFHE version        : 1.5.1
+MATHBACKEND            : 4
+NATIVEINT              : 64
+MAX_MODULUS_SIZE       : 60
+Compiler               : 13.3.0
+Values come from       : ChineseRemainderTransformFTT<NativeVector>
+                         ::ForwardTransformToBitReverseInPlace
+                         ::InverseTransformFromBitReverseInPlace
+                         (the functions NativePoly::SwitchFormat calls)
+
+================================================================================
+EXPERIMENT  n4-b8-q241
+================================================================================
+
+PARAMETERS
+  ring                     Z_241[X] / (X^4 + 1)
+  N   ring dimension                  4
+  M   cyclotomic order                8   = 2N
+  modulus bit size                    8
+  q   modulus                       241   LastPrime<NativeInteger>(8, 8)
+  psi 2N-th root of unity             8   RootOfUnity<NativeInteger>(8, 241)
+  psi^-1                            211
+  omega = psi^2                      64   an N-th root of unity
+  N^-1 mod q                        181
+  bit-reversal width                  2   = log2(N)
+  Barrett mu                       2175   from q.ComputeMu()
+
+  checks on the parameters
+    (q-1) mod M = 0                                 OK
+    psi^N mod q = 240, and q-1 = 240                OK
+    psi^M mod q = 1                                 OK
+    psi * psi^-1 mod q = 1                          OK
+    N * N^-1 mod q = 1                              OK
+    Barrett mu recomputed independently             OK
+
+FORWARD TWIDDLE TABLE
+  m_rootOfUnityReverseTableByModulus[q]
+
+    slot   bin(slot)   brev(slot)   power          value   Shoup precon floor(w*2^64/q)
+       0          00           00   psi^0             1        76542506529915151
+       1          01           10   psi^2            64      4898720417914569723
+       2          10           01   psi^1             8       612340052239321215
+       3          11           11   psi^3            30      2296275195897454558
+
+INVERSE TWIDDLE TABLE
+  m_rootOfUnityInverseReverseTableByModulus[q]
+
+    slot   bin(slot)   brev(slot)   power          value   Shoup precon floor(w*2^64/q)
+       0          00           00   psi^-0            1        76542506529915151
+       1          01           10   psi^-2          177     13548023655794981892
+       2          10           01   psi^-1          211     16150468877812097057
+       3          11           11   psi^-3          233     17834404021470230400
+
+  Slot 0 holds psi^0 = 1. The forward transform never reads it: its loops
+  index the table from 1 upward.
+
+CYCLOTOMIC-ORDER INVERSE TABLE
+  m_cycloOrderInverseTableByModulus[q]
+
+    index   (2^index)^-1 mod q   Shoup precon
+        0                   1        76542506529915151
+        1                 121      9261643290119733383
+        2                 181     13854193681914642499
+
+    the inverse transform reads index 2, which is N^-1 = 181  OK
+
+FUSED FINAL TWIDDLE OF THE INVERSE TRANSFORM
+  omega1Inv = TableI[1] * N^-1 = 177 * 181 mod 241 = 225
+  which is psi^-(N/2) * N^-1 = 177 * 181 = 225   OK
+  OpenFHE puts the division by N into this twiddle for the upper half of the
+  array, then multiplies only the lower half by N^-1. See OpenFHE issue 872.
+
+TWIDDLE FACTORS USED BY EACH STAGE, FORWARD
+  stage 1   m =   1   stride t =   2   slots 1..1   twiddles 64
+  stage 2   m =   2   stride t =   1   slots 2..3   twiddles 8, 30
+
+TWIDDLE FACTORS USED BY EACH STAGE, INVERSE
+  stage 1   m =   2   stride t =   1   slots 2..3   twiddles 211, 233
+  stage 2   m =   1   stride t =   2   slots 1..1   twiddles 177   (used as omega1Inv = 225)
+
+EVALUATION POINTS
+  The forward transform leaves slot p holding a(psi^(2*brev(p)+1)).
+
+    slot p   brev(p)   exponent   point = psi^exponent mod q
+         0         0          1                            8
+         1         2          5                          233
+         2         1          3                           30
+         3         3          7                          211
+
+--------------------------------------------------------------------------------
+CASE delta0   a(X) = 1
+  The constant polynomial 1. Its value is 1 at every point, so the transform
+  is all ones. This is the simplest test.
+
+  input, coefficient form   [ 1, 0, 0, 0 ]
+  forward NTT output        [ 1, 1, 1, 1 ]
+    independent O(N^2)      [ 1, 1, 1, 1 ]   MATCH
+  inverse NTT output        [ 1, 0, 0, 0 ]
+    independent O(N^2)      [ 1, 0, 0, 0 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 1, 1, 1, 1 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE delta1   a(X) = X
+  The value of X at a point is the point. This transform is therefore the list
+  of evaluation points: out[p] = psi^(2*brev(p)+1).
+
+  input, coefficient form   [ 0, 1, 0, 0 ]
+  forward NTT output        [ 8, 233, 30, 211 ]
+    independent O(N^2)      [ 8, 233, 30, 211 ]   MATCH
+  inverse NTT output        [ 0, 1, 0, 0 ]
+    independent O(N^2)      [ 0, 1, 0, 0 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 8, 233, 30, 211 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE ramp   a_i = i
+  A ramp. It has no symmetry that can hide a mistake.
+
+  input, coefficient form   [ 0, 1, 2, 3 ]
+  forward NTT output        [ 226, 30, 167, 59 ]
+    independent O(N^2)      [ 226, 30, 167, 59 ]   MATCH
+  inverse NTT output        [ 0, 1, 2, 3 ]
+    independent O(N^2)      [ 0, 1, 2, 3 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 226, 30, 167, 59 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE ones   a_i = 1
+  Every coefficient is 1. The output looks random, but it is only this
+  polynomial at N different points.
+
+  input, coefficient form   [ 1, 1, 1, 1 ]
+  forward NTT output        [ 103, 27, 216, 140 ]
+    independent O(N^2)      [ 103, 27, 216, 140 ]   MATCH
+  inverse NTT output        [ 1, 1, 1, 1 ]
+    independent O(N^2)      [ 1, 1, 1, 1 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 103, 27, 216, 140 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE sparse   a(X) = 3 + 5X^(N-1)
+  Two non-zero coefficients. One is at the top degree, where X^N = -1 becomes
+  important.
+
+  input, coefficient form   [ 3, 0, 0, 5 ]
+  forward NTT output        [ 153, 94, 43, 204 ]
+    independent O(N^2)      [ 153, 94, 43, 204 ]   MATCH
+  inverse NTT output        [ 3, 0, 0, 5 ]
+    independent O(N^2)      [ 3, 0, 0, 5 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 153, 94, 43, 204 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE random   pseudo-random coefficients
+  What a real ciphertext polynomial looks like: uniform residues mod q. A
+  fixed-seed xorshift64* generates them, so the trace repeats exactly.
+
+  input, coefficient form   [ 135, 1, 168, 125 ]
+  forward NTT output        [ 185, 140, 53, 162 ]
+    independent O(N^2)      [ 185, 140, 53, 162 ]   MATCH
+  inverse NTT output        [ 135, 1, 168, 125 ]
+    independent O(N^2)      [ 135, 1, 168, 125 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 185, 140, 53, 162 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE nearmax   a_i = q-1
+  Every coefficient is at the largest residue. The conditional subtractions
+  inside the butterfly then run.
+
+  input, coefficient form   [ 240, 240, 240, 240 ]
+  forward NTT output        [ 138, 214, 25, 101 ]
+    independent O(N^2)      [ 138, 214, 25, 101 ]   MATCH
+  inverse NTT output        [ 240, 240, 240, 240 ]
+    independent O(N^2)      [ 240, 240, 240, 240 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 138, 214, 25, 101 ]   MATCH
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT square   X * X = X^2
+  The simplest product. Nothing passes the top degree.
+
+  a                         [ 0, 1, 0, 0 ]
+  b                         [ 0, 1, 0, 0 ]
+  NTT(a)                    [ 8, 233, 30, 211 ]
+  NTT(b)                    [ 8, 233, 30, 211 ]
+  one product per slot      [ 64, 64, 177, 177 ]
+  INTT of that              [ 0, 0, 1, 0 ]
+  schoolbook product        [ 0, 0, 1, 0 ]   MATCH
+  multiplications           direct 16
+                            through the transform 18 = 12 in butterflies + 4 pointwise + 2 by N^-1
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT wrap   X^(N-1) * X = X^N = -1
+  The purpose of this ring. The product passes degree N, returns to degree 0,
+  and changes sign.
+
+  a                         [ 0, 0, 0, 1 ]
+  b                         [ 0, 1, 0, 0 ]
+  NTT(a)                    [ 30, 211, 8, 233 ]
+  NTT(b)                    [ 8, 233, 30, 211 ]
+  one product per slot      [ 240, 240, 240, 240 ]
+  INTT of that              [ 240, 0, 0, 0 ]
+  schoolbook product        [ 240, 0, 0, 0 ]   MATCH
+  multiplications           direct 16
+                            through the transform 18 = 12 in butterflies + 4 pointwise + 2 by N^-1
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT random   two random polynomials
+  The realistic case.
+
+  a                         [ 134, 194, 128, 220 ]
+  b                         [ 51, 7, 76, 166 ]
+  NTT(a)                    [ 90, 174, 4, 27 ]
+  NTT(b)                    [ 70, 120, 99, 156 ]
+  one product per slot      [ 34, 154, 155, 115 ]
+  INTT of that              [ 235, 97, 107, 181 ]
+  schoolbook product        [ 235, 97, 107, 181 ]   MATCH
+  multiplications           direct 16
+                            through the transform 18 = 12 in butterflies + 4 pointwise + 2 by N^-1
+
+--------------------------------------------------------------------------------
+RESULT  n4-b8-q241: 58 checks, 0 failures  ALL PASSED
+

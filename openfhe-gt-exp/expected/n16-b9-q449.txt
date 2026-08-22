@@ -1,0 +1,267 @@
+OpenFHE version        : 1.5.1
+MATHBACKEND            : 4
+NATIVEINT              : 64
+MAX_MODULUS_SIZE       : 60
+Compiler               : 13.3.0
+Values come from       : ChineseRemainderTransformFTT<NativeVector>
+                         ::ForwardTransformToBitReverseInPlace
+                         ::InverseTransformFromBitReverseInPlace
+                         (the functions NativePoly::SwitchFormat calls)
+
+================================================================================
+EXPERIMENT  n16-b9-q449
+================================================================================
+
+PARAMETERS
+  ring                     Z_449[X] / (X^16 + 1)
+  N   ring dimension                 16
+  M   cyclotomic order               32   = 2N
+  modulus bit size                    9
+  q   modulus                       449   LastPrime<NativeInteger>(9, 32)
+  psi 2N-th root of unity            10   RootOfUnity<NativeInteger>(32, 449)
+  psi^-1                             45
+  omega = psi^2                     100   an N-th root of unity
+  N^-1 mod q                        421
+  bit-reversal width                  4   = log2(N)
+  Barrett mu                       4670   from q.ComputeMu()
+
+  checks on the parameters
+    (q-1) mod M = 0                                 OK
+    psi^N mod q = 448, and q-1 = 448                OK
+    psi^M mod q = 1                                 OK
+    psi * psi^-1 mod q = 1                          OK
+    N * N^-1 mod q = 1                              OK
+    Barrett mu recomputed independently             OK
+
+FORWARD TWIDDLE TABLE
+  m_rootOfUnityReverseTableByModulus[q]
+
+    slot   bin(slot)   brev(slot)   power          value   Shoup precon floor(w*2^64/q)
+       0        0000         0000   psi^0             1        41084062524965593
+       1        0001         1000   psi^8            67      2752632189172694784
+       2        0010         0100   psi^4           122      5012255628045802443
+       3        0011         1100   psi^12           92      3779733752296834629
+       4        0100         0010   psi^2           100      4108406252496559379
+       5        0101         1010   psi^10          414     17008801885335755833
+       6        0110         0110   psi^6            77      3163472814422350722
+       7        0111         1110   psi^14          220      9038493755492430635
+       8        1000         0001   psi^1            10       410840625249655937
+       9        1001         1001   psi^9           221      9079577818017396229
+      10        1010         0101   psi^5           322     13229068133038921203
+      11        1011         1101   psi^13           22       903849375549243063
+      12        1100         0011   psi^3           102      4190574377546490567
+      13        1101         1011   psi^11           99      4067322189971593786
+      14        1110         0111   psi^7           321     13187984070513955609
+      15        1111         1111   psi^15          404     16597961260086099895
+
+INVERSE TWIDDLE TABLE
+  m_rootOfUnityInverseReverseTableByModulus[q]
+
+    slot   bin(slot)   brev(slot)   power          value   Shoup precon floor(w*2^64/q)
+       0        0000         0000   psi^-0            1        41084062524965593
+       1        0001         1000   psi^-8          382     15694111884536856831
+       2        0010         0100   psi^-4          357     14667010321412716986
+       3        0011         1100   psi^-12         327     13434488445663749172
+       4        0100         0010   psi^-2          229      9408250318217120980
+       5        0101         1010   psi^-10         372     15283271259287200893
+       6        0110         0110   psi^-6           35      1437942188373795782
+       7        0111         1110   psi^-14         349     14338337821212992236
+       8        1000         0001   psi^-1           45      1848782813623451720
+       9        1001         1001   psi^-9          128      5258760003195596006
+      10        1010         0101   psi^-5          350     14379421883737957829
+      11        1011         1101   psi^-13         347     14256169696163061048
+      12        1100         0011   psi^-3          427     17542894698160308552
+      13        1101         1011   psi^-11         127      5217675940670630412
+      14        1110         0111   psi^-7          228      9367166255692155386
+      15        1111         1111   psi^-15         439     18035903448459895678
+
+  Slot 0 holds psi^0 = 1. The forward transform never reads it: its loops
+  index the table from 1 upward.
+
+CYCLOTOMIC-ORDER INVERSE TABLE
+  m_cycloOrderInverseTableByModulus[q]
+
+    index   (2^index)^-1 mod q   Shoup precon
+        0                   1        41084062524965593
+        1                 225      9243914068117258604
+        2                 337     13845329070913405110
+        3                 393     16146036572311478363
+        4                 421     17296390323010514989
+
+    the inverse transform reads index 4, which is N^-1 = 421  OK
+
+FUSED FINAL TWIDDLE OF THE INVERSE TRANSFORM
+  omega1Inv = TableI[1] * N^-1 = 382 * 421 mod 449 = 80
+  which is psi^-(N/2) * N^-1 = 382 * 421 = 80   OK
+  OpenFHE puts the division by N into this twiddle for the upper half of the
+  array, then multiplies only the lower half by N^-1. See OpenFHE issue 872.
+
+TWIDDLE FACTORS USED BY EACH STAGE, FORWARD
+  stage 1   m =   1   stride t =   8   slots 1..1   twiddles 67
+  stage 2   m =   2   stride t =   4   slots 2..3   twiddles 122, 92
+  stage 3   m =   4   stride t =   2   slots 4..7   twiddles 100, 414, 77, 220
+  stage 4   m =   8   stride t =   1   slots 8..15   twiddles 10, 221, 322, 22, 102, 99, 321, 404
+
+TWIDDLE FACTORS USED BY EACH STAGE, INVERSE
+  stage 1   m =   8   stride t =   1   slots 8..15   twiddles 45, 128, 350, 347, 427, 127, 228, 439
+  stage 2   m =   4   stride t =   2   slots 4..7   twiddles 229, 372, 35, 349
+  stage 3   m =   2   stride t =   4   slots 2..3   twiddles 357, 327
+  stage 4   m =   1   stride t =   8   slots 1..1   twiddles 382   (used as omega1Inv = 80)
+
+EVALUATION POINTS
+  The forward transform leaves slot p holding a(psi^(2*brev(p)+1)).
+
+    slot p   brev(p)   exponent   point = psi^exponent mod q
+         0         0          1                           10
+         1         8         17                          439
+         2         4          9                          221
+         3        12         25                          228
+         4         2          5                          322
+         5        10         21                          127
+         6         6         13                           22
+         7        14         29                          427
+         8         1          3                          102
+         9         9         19                          347
+        10         5         11                           99
+        11        13         27                          350
+        12         3          7                          321
+        13        11         23                          128
+        14         7         15                          404
+        15        15         31                           45
+
+--------------------------------------------------------------------------------
+CASE delta0   a(X) = 1
+  The constant polynomial 1. Its value is 1 at every point, so the transform
+  is all ones. This is the simplest test.
+
+  input, coefficient form   [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  forward NTT output        [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+    independent O(N^2)      [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]   MATCH
+  inverse NTT output        [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    independent O(N^2)      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE delta1   a(X) = X
+  The value of X at a point is the point. This transform is therefore the list
+  of evaluation points: out[p] = psi^(2*brev(p)+1).
+
+  input, coefficient form   [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  forward NTT output        [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]
+    independent O(N^2)      [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]   MATCH
+  inverse NTT output        [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    independent O(N^2)      [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE ramp   a_i = i
+  A ramp. It has no symmetry that can hide a mistake.
+
+  input, coefficient form   [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+  forward NTT output        [ 259, 5, 297, 318, 200, 3, 261, 251, 168, 193, 5, 328, 257, 256, 263, 79 ]
+    independent O(N^2)      [ 259, 5, 297, 318, 200, 3, 261, 251, 168, 193, 5, 328, 257, 256, 263, 79 ]   MATCH
+  inverse NTT output        [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+    independent O(N^2)      [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 259, 5, 297, 318, 200, 3, 261, 251, 168, 193, 5, 328, 257, 256, 263, 79 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE ones   a_i = 1
+  Every coefficient is 1. The output looks random, but it is only this
+  polynomial at N different points.
+
+  input, coefficient form   [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+  forward NTT output        [ 349, 41, 200, 89, 442, 57, 342, 371, 80, 109, 394, 9, 362, 251, 410, 102 ]
+    independent O(N^2)      [ 349, 41, 200, 89, 442, 57, 342, 371, 80, 109, 394, 9, 362, 251, 410, 102 ]   MATCH
+  inverse NTT output        [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+    independent O(N^2)      [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 349, 41, 200, 89, 442, 57, 342, 371, 80, 109, 394, 9, 362, 251, 410, 102 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE sparse   a(X) = 3 + 5X^(N-1)
+  Two non-zero coefficients. One is at the top degree, where X^N = -1 becomes
+  important.
+
+  input, coefficient form   [ 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 ]
+  forward NTT output        [ 227, 228, 261, 194, 49, 406, 64, 391, 113, 342, 266, 189, 210, 245, 53, 402 ]
+    independent O(N^2)      [ 227, 228, 261, 194, 49, 406, 64, 391, 113, 342, 266, 189, 210, 245, 53, 402 ]   MATCH
+  inverse NTT output        [ 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 ]
+    independent O(N^2)      [ 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 227, 228, 261, 194, 49, 406, 64, 391, 113, 342, 266, 189, 210, 245, 53, 402 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE random   pseudo-random coefficients
+  What a real ciphertext polynomial looks like: uniform residues mod q. A
+  fixed-seed xorshift64* generates them, so the trace repeats exactly.
+
+  input, coefficient form   [ 141, 273, 182, 250, 185, 345, 330, 42, 90, 41, 255, 418, 77, 203, 202, 351 ]
+  forward NTT output        [ 199, 262, 147, 359, 94, 57, 278, 378, 317, 345, 362, 256, 66, 138, 237, 108 ]
+    independent O(N^2)      [ 199, 262, 147, 359, 94, 57, 278, 378, 317, 345, 362, 256, 66, 138, 237, 108 ]   MATCH
+  inverse NTT output        [ 141, 273, 182, 250, 185, 345, 330, 42, 90, 41, 255, 418, 77, 203, 202, 351 ]
+    independent O(N^2)      [ 141, 273, 182, 250, 185, 345, 330, 42, 90, 41, 255, 418, 77, 203, 202, 351 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 199, 262, 147, 359, 94, 57, 278, 378, 317, 345, 362, 256, 66, 138, 237, 108 ]   MATCH
+
+--------------------------------------------------------------------------------
+CASE nearmax   a_i = q-1
+  Every coefficient is at the largest residue. The conditional subtractions
+  inside the butterfly then run.
+
+  input, coefficient form   [ 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448 ]
+  forward NTT output        [ 100, 408, 249, 360, 7, 392, 107, 78, 369, 340, 55, 440, 87, 198, 39, 347 ]
+    independent O(N^2)      [ 100, 408, 249, 360, 7, 392, 107, 78, 369, 340, 55, 440, 87, 198, 39, 347 ]   MATCH
+  inverse NTT output        [ 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448 ]
+    independent O(N^2)      [ 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448 ]   MATCH
+  round trip equals the input                       OK
+  NativePoly::SwitchFormat  [ 100, 408, 249, 360, 7, 392, 107, 78, 369, 340, 55, 440, 87, 198, 39, 347 ]   MATCH
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT square   X * X = X^2
+  The simplest product. Nothing passes the top degree.
+
+  a                         [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  b                         [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  NTT(a)                    [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]
+  NTT(b)                    [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]
+  one product per slot      [ 100, 100, 349, 349, 414, 414, 35, 35, 77, 77, 372, 372, 220, 220, 229, 229 ]
+  INTT of that              [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  schoolbook product        [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]   MATCH
+  multiplications           direct 256
+                            through the transform 120 = 96 in butterflies + 16 pointwise + 8 by N^-1
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT wrap   X^(N-1) * X = X^N = -1
+  The purpose of this ring. The product passes degree N, returns to degree 0,
+  and changes sign.
+
+  a                         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ]
+  b                         [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  NTT(a)                    [ 404, 45, 321, 128, 99, 350, 102, 347, 22, 427, 322, 127, 221, 228, 10, 439 ]
+  NTT(b)                    [ 10, 439, 221, 228, 322, 127, 22, 427, 102, 347, 99, 350, 321, 128, 404, 45 ]
+  one product per slot      [ 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448, 448 ]
+  INTT of that              [ 448, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  schoolbook product        [ 448, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]   MATCH
+  multiplications           direct 256
+                            through the transform 120 = 96 in butterflies + 16 pointwise + 8 by N^-1
+
+--------------------------------------------------------------------------------
+NEGACYCLIC PRODUCT random   two random polynomials
+  The realistic case.
+
+  a                         [ 41, 118, 265, 356, 170, 393, 155, 315, 167, 410, 125, 404, 360, 115, 368, 322 ]
+  b                         [ 365, 269, 331, 412, 10, 292, 328, 329, 366, 155, 42, 277, 89, 195, 378, 59 ]
+  NTT(a)                    [ 414, 157, 264, 3, 273, 375, 96, 254, 65, 216, 419, 327, 8, 153, 368, 407 ]
+  NTT(b)                    [ 224, 34, 57, 369, 440, 395, 302, 164, 37, 51, 113, 122, 439, 433, 262, 153 ]
+  one product per slot      [ 242, 399, 231, 209, 237, 404, 256, 348, 160, 240, 202, 382, 369, 246, 330, 309 ]
+  INTT of that              [ 173, 372, 89, 308, 420, 31, 305, 137, 305, 380, 163, 227, 109, 312, 405, 364 ]
+  schoolbook product        [ 173, 372, 89, 308, 420, 31, 305, 137, 305, 380, 163, 227, 109, 312, 405, 364 ]   MATCH
+  multiplications           direct 256
+                            through the transform 120 = 96 in butterflies + 16 pointwise + 8 by N^-1
+
+--------------------------------------------------------------------------------
+RESULT  n16-b9-q449: 108 checks, 0 failures  ALL PASSED
+

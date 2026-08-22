@@ -1,0 +1,23 @@
+{
+ "322": "const auto modulus{element->GetModulus()};",
+ "324": "for (uint32_t m{1}, t{n}, logt{GetMSB(t)}; m < n;",
+ "326": "auto omega{rootOfUnityTable[i + m]};",
+ "330": "omegaFactor.ModMulFastConstEq(omega, modulus, preconOmega);",
+ "352": "for (uint32_t i{0}; i < (n << 1); i += 2) {",
+ "354": "auto omega{rootOfUnityTable[(i >> 1) + n]};",
+ "356": "omegaFactor.ModMulFastConstEq(omega, modulus, preconOmega);",
+ "374": "}",
+ "535": "uint32_t n(element->GetLength());",
+ "538": "auto omega1Inv{rootOfUnityInverseTable[1].ModMulFastConst(",
+ "543": "for (uint32_t i{0}; i < n; i += 2) {",
+ "544": "auto omega{rootOfUnityInverseTable[(i + n) >> 1]};",
+ "556": "omegaFactor.ModMulFastConstEq(omega, modulus, preconOmega);",
+ "569": "for (uint32_t m{n >> 2}, t{2}, logt{2}; m > 1;",
+ "571": "auto omega{rootOfUnityInverseTable[i + m]};",
+ "584": "omegaFactor.ModMulFastConstEq(omega, modulus, preconOmega);",
+ "601": "for (uint32_t j1{0}; j1 < j2; ++j1) {",
+ "612": "omegaFactor.ModMulFastConstEq(omega1Inv, modulus, preconOmega1Inv);",
+ "623": "for (uint32_t i = 0; i < j2; ++i)",
+ "624": "(*element)[i].ModMulFastConstEq(cycloOrderInv, modulus, preconCycloOrderInv);",
+ "625": "}"
+}

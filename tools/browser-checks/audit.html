@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>bug audit</title>
+<style>body{font:13px/1.5 ui-monospace,monospace;margin:1rem}
+#log{white-space:pre-wrap}.ok{color:#2a7}.bad{color:#b52}.info{color:#666}</style>
+</head><body>
+<h1 id="head">running…</h1><div id="log"></div>
+<iframe id="f" style="width:1500px;height:1000px;border:1px solid #ccc" title="site"></iframe>
+<script>
+const log = document.getElementById('log');
+const fails = []; let n = 0;
+function check(c, m) { n++; log.insertAdjacentHTML('beforeend',
+  `<div class="${c?'ok':'bad'}">${c?'ok  ':'FAIL'} ${m}</div>`); if (!c) fails.push(m); }
+function info(m) { log.insertAdjacentHTML('beforeend', `<div class="info">     ${m}</div>`); }
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const f = document.getElementById('f');
+f.src = 'index.html#/transform?N=8&bits=5&case=ramp&dir=forward&step=0';
+const W = () => f.contentWindow, D = () => f.contentDocument;
+const hash = () => W().location.hash;
+const q = k => new URLSearchParams(hash().split('?')[1] || '').get(k);
+const step = () => Number(q('step'));
+const byLabel = l => D().querySelector(`button[aria-label="${l}"]`);
+const key = k => { const KE = W().KeyboardEvent;
+  D().dispatchEvent(new KE('keydown', {key:k, bubbles:true, cancelable:true})); };
+
+async function nav(h) { W().location.hash = h; await sleep(1100); }
+
+f.onload = async () => { try {
+  await sleep(2000);
+
+  // ---- A. store subscriptions must not accumulate across remounts -------
+  // Count subscribers directly rather than timing: a timing ratio was both
+  // flaky and divided by zero when the fresh case measured 0 ms.
+  const store = await W().eval("import('./js/store.js')");
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  const base = store.listenerCount();
+  for (let i = 0; i < 8; i++) {
+    await nav('#/roots');
+    await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  }
+  const grown = store.listenerCount();
+  info(`store subscribers: ${base} fresh, ${grown} after 8 route round trips`);
+  check(grown === base,
+    `route remounts do not leak subscribers (${base} -> ${grown})`);
+
+  // Same for a cycle through every route.
+  for (const r of ['#/tour', '#/convolution', '#/about', '#/roots',
+                   '#/transform?N=8&bits=5&case=ramp&dir=forward&step=0']) await nav(r);
+  const cycled = store.listenerCount();
+  check(cycled === base, `a full route cycle does not leak subscribers (${base} -> ${cycled})`);
+
+  // ---- B. granularity toggle reflects its own state ---------------------
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  const gran = [...D().querySelectorAll('.transport button')]
+    .find(b => b.textContent.includes('stage steps'));
+  check(!!gran, 'granularity button present');
+  const before = gran.getAttribute('aria-pressed');
+  gran.click(); await sleep(350);
+  const g2 = [...D().querySelectorAll('.transport button')].find(b => b.textContent.includes('stage steps'));
+  check(g2.getAttribute('aria-pressed') !== before,
+    `granularity button shows its new state (was ${before}, now ${g2.getAttribute('aria-pressed')})`);
+  // ...and it must actually change behaviour. From step 0 the next stage
+  // boundary happens to be step 1, so press twice and require the second press
+  // to clear the whole first stage rather than nudging one event.
+  byLabel('Back to the start').click(); await sleep(200);
+  byLabel('Next step').click(); await sleep(220);
+  const firstStage = step();
+  byLabel('Next step').click(); await sleep(220);
+  const secondStage = step();
+  info(`stage steps: 0 -> ${firstStage} -> ${secondStage}`);
+  check(secondStage - firstStage > 2,
+    `stage steps jumps a whole stage, not one event (${firstStage} -> ${secondStage})`);
+  // And the ribbon should agree about which stage we are in.
+  const active = D().querySelectorAll('.stage-ribbon button.active').length;
+  check(active === 1, `exactly one ribbon entry active after a stage jump (${active})`);
+  g2.click(); await sleep(300);
+  const g3 = [...D().querySelectorAll('.transport button')].find(b => b.textContent.includes('stage steps'));
+  check(g3.getAttribute('aria-pressed') === 'false', 'granularity toggles back off');
+
+  // ---- C. twiddle tab follows direction until overridden ---------------
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  const tabBadge = () => D().querySelector('.p-twiddles .badge').textContent.trim();
+  check(tabBadge() === 'forward', `twiddle table starts on the forward table (${tabBadge()})`);
+  key('i'); await sleep(600);
+  check(tabBadge() === 'inverse', `switching direction switches the table (${tabBadge()})`);
+  // Now pin it manually and switch direction again.
+  [...D().querySelectorAll('.p-twiddles .tabs button')][0].click(); await sleep(400);
+  check(tabBadge() === 'forward', 'clicking a tab pins it against the current direction');
+  key('f'); await sleep(600);
+  check(tabBadge() === 'forward', 'and a direction change restores the matching table');
+  key('i'); await sleep(600);
+  check(tabBadge() === 'inverse', 'a pinned tab does not outlive the next direction change');
+
+  // ---- D. malformed / out-of-range deep links --------------------------
+  const cases = [
+    ['#/transform?N=999&bits=99&case=ramp&dir=forward&step=0', 'absurd N and bits'],
+    ['#/transform?N=8&bits=5&case=does-not-exist&dir=forward&step=0', 'unknown case id'],
+    ['#/transform?N=8&bits=5&case=ramp&dir=sideways&step=0', 'bogus direction'],
+    ['#/transform?N=8&bits=5&case=ramp&dir=forward&step=99999', 'step past the end'],
+    ['#/transform?N=8&bits=5&case=ramp&dir=forward&step=-7', 'negative step'],
+    ['#/transform?N=16&bits=5&case=ramp&dir=forward&step=0', 'infeasible (N,bits) pair'],
+    ['#/nonsense', 'unknown route'],
+    ['#/convolution?N=8&bits=5&conv=nope', 'unknown convolution id'],
+    ['#/roots?N=notanumber&bits=x', 'non-numeric params'],
+  ];
+  for (const [h, why] of cases) {
+    await nav(h);
+    const err = D().getElementById('errbanner');
+    const body = D().getElementById('main').textContent.length;
+    check(!err && body > 300, `survives ${why}${err ? ' — ' + err.textContent.slice(0,90) : ''}`);
+  }
+
+  // unknown case must not leave the picker with nothing selected
+  await nav('#/transform?N=8&bits=5&case=does-not-exist&dir=forward&step=0');
+  const pressed = D().querySelectorAll('.case-list button[aria-pressed="true"]').length;
+  check(pressed === 1, `unknown case id falls back to a selected case (${pressed} selected)`);
+
+  // step past the end must be clamped in the URL too, not just on screen
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=99999');
+  await sleep(300);
+  byLabel('Next step').click(); await sleep(250);
+  check(step() < 100, `an out-of-range step is corrected in the URL (now ${step()})`);
+
+  // ---- E. browser back / forward across nav links ----------------------
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  D().querySelector('.topbar-nav a[data-route="roots"]').click(); await sleep(1200);
+  check(D().body.dataset.ready === 'roots', 'nav link reaches the roots route');
+  W().history.back(); await sleep(1400);
+  check(D().body.dataset.ready === 'transform',
+    `Back returns to the transform route (ready=${D().body.dataset.ready})`);
+  check(!D().getElementById('errbanner'), 'no error after going Back');
+  W().history.forward(); await sleep(1400);
+  check(D().body.dataset.ready === 'roots', 'Forward returns to roots');
+
+  // ---- F. rapid config switching (races on the trace fetch) ------------
+  await nav('#/transform?N=8&bits=5&case=ramp&dir=forward&step=0');
+  const cells = [...D().querySelectorAll('.matrix td:not(.no) button')];
+  cells.find(b => b.title.includes('N=32')).click();
+  cells.find(b => b.title.includes('N=4,')).click();
+  cells.find(b => b.title.includes('N=16')).click();
+  await sleep(2200);
+  const rows = D().querySelectorAll('.p-array .arr-row').length - 1;
+  check(!D().getElementById('errbanner'), 'no error after three config clicks in a row');
+  check(String(rows) === q('N'),
+    `the winning selection is the one rendered (URL N=${q('N')}, array shows ${rows} slots)`);
+
+  // ---- F2. the pipeline figure must agree with its own operation count --
+  // It previously drew two transforms while the count assumed three, and showed
+  // b-hat with nothing producing it.
+  await nav('#/tour?t=2');
+  const boxes = [...D().querySelectorAll('.tour-fig .pipe .box')].map(b => b.textContent.trim());
+  const ntt = boxes.filter(t => t === 'NTT').length;
+  const intt = boxes.filter(t => t === 'INTT').length;
+  info(`pipeline boxes: ${boxes.join(' | ')}`);
+  check(ntt === 2, `two forward transforms drawn (found ${ntt})`);
+  check(intt === 1, `one inverse transform drawn (found ${intt})`);
+  check(boxes.includes('a') && boxes.includes('b'),
+    'both input polynomials appear as inputs');
+  const fast = D().querySelector('.tour-fig .opcount .fast');
+  const big = Number(fast.querySelector('.big').textContent);
+  // textContent of .fast starts with the big number; the label is the remainder.
+  const label = fast.textContent.replace(String(big), '').trim();
+  // The label must break the total down, so a reader can see what is counted.
+  check(/in butterflies/.test(label) && /by N/.test(label),
+    `the label breaks the total down: "${label}"`);
+  // The total must equal every multiplication the simulator actually animates:
+  // three transforms of butterflies, N pointwise products, and the trailing N/2
+  // multiplications by N^-1 in the inverse. Read N from the store, since the tour
+  // route deliberately keeps only the step number in the hash.
+  const N = store.state.N;
+  const logN = Math.log2(N);
+  const expect = 3 * (N / 2) * logN + N + N / 2;
+  check(big === expect,
+    `the total ${big} equals ${expect} = ${3*(N/2)*logN} butterfly + ${N} pointwise `
+    + `+ ${N/2} by N^-1 at N=${N}`);
+
+  // ---- G. playback to completion stops cleanly -------------------------
+  await nav('#/transform?N=4&bits=5&case=delta1&dir=forward&step=0');
+  const speed = D().querySelector('select[aria-label="Playback speed"]');
+  speed.value = '4';
+  speed.dispatchEvent(new (W().Event)('change', { bubbles: true }));
+  await sleep(300);
+  byLabel('Play').click();
+  await sleep(6000);
+  const total = Number(D().querySelector('.transport-count').textContent.split('/')[1]);
+  check(step() === total - 1, `playback runs to the end and stops (${step()+1}/${total})`);
+  check(!!byLabel('Play'), 'button returns to Play when playback finishes');
+  check(!D().getElementById('errbanner'), 'no error after a full playback');
+
+  document.getElementById('head').textContent = fails.length
+    ? `${fails.length} FAILURE(S) of ${n} checks` : `all ${n} audit checks passed`;
+  document.body.dataset.result = fails.length ? 'fail' : 'pass';
+} catch (e) {
+  check(false, 'harness threw: ' + (e && e.stack ? e.stack : e));
+  document.getElementById('head').textContent = `${fails.length} FAILURE(S) of ${n} checks`;
+  document.body.dataset.result = 'fail';
+} };
+</script></body></html>

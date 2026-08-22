@@ -1,0 +1,97 @@
+/* ---------- chrome ---------- */
+.topbar {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: baseline;
+  padding: .6rem 1rem; border-bottom: 1px solid var(--rule);
+  background: var(--bg-panel); position: sticky; top: 0; z-index: 20;
+}
+.topbar-id { display: flex; flex-direction: column; }
+.topbar-title { font-weight: 660; letter-spacing: -.01em; }
+.topbar-sub { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); }
+.topbar-nav { display: flex; flex-wrap: wrap; gap: .15rem; margin-left: auto; }
+.topbar-nav a {
+  padding: .3rem .6rem; border-radius: var(--r); text-decoration: none;
+  color: var(--ink-soft); font-size: .875rem;
+}
+.topbar-nav a:hover { background: var(--bg-hover); color: var(--ink); }
+.topbar-nav a[aria-current="page"] {
+  background: var(--accent-soft); color: var(--accent); font-weight: 600;
+}
+
+.boot { padding: 3rem 1rem; color: var(--ink-faint); text-align: center; }
+
+.sitefoot {
+  border-top: 1px solid var(--rule); padding: 1rem;
+  color: var(--ink-soft); font-size: .8rem; max-width: 76ch;
+}
+.sitefoot .fineprint { color: var(--ink-faint); font-size: .74rem; }
+
+/* ---------- route shells ---------- */
+.route { padding: 1rem; }
+.route-prose { max-width: 74ch; padding: 1.25rem 1rem 2rem; }
+.route-prose h2 { margin-top: 1.75rem; }
+
+/* ---------- transform route grid ----------
+   Three independent columns, each a flex stack. Deliberately not a two-row grid:
+   with rows, the tallest panel in row 1 pushes everything in row 2 below the
+   fold, which is exactly what you do not want for the working panel. */
+.tx {
+  display: grid;
+  gap: .75rem;
+  align-items: start;
+  grid-template-columns: minmax(250px, 300px) minmax(0, 1fr) minmax(340px, 430px);
+}
+.tx-col { display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
+.tx-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; align-items: start; }
+
+@media (max-width: 1280px) {
+  .tx { grid-template-columns: minmax(240px, 290px) minmax(0, 1fr); }
+  .tx-right { grid-column: 1 / -1; }
+  .tx-right { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .75rem; }
+}
+@media (max-width: 900px) {
+  /* One column. `display: contents` dissolves the column wrappers so every
+     panel becomes a grid item in its own right and can be ordered: setup first,
+     then the diagram and the working, with the reference tables last. */
+  .tx { grid-template-columns: minmax(0, 1fr); }
+  .tx-col, .tx-pair, .tx-right { display: contents; }
+  .p-config   { order: 1; }
+  .p-dir      { order: 2; }
+  .p-input    { order: 3; }
+  .p-flow     { order: 4; }
+  .p-array    { order: 5; }
+  .p-math     { order: 6; }
+  .p-code     { order: 7; }
+  .p-twiddles { order: 8; }
+  .p-params   { order: 9; }
+  .route { padding: .5rem; }
+}
+
+/* ---------- transport bar ---------- */
+.transport {
+  position: sticky; bottom: 0; z-index: 15;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .7rem;
+  padding: .5rem .75rem; margin-top: .75rem;
+  background: var(--bg-panel); border: 1px solid var(--rule);
+  border-radius: var(--r); box-shadow: var(--shadow);
+}
+.transport-group { display: flex; gap: .15rem; }
+.transport button { min-width: 2.1rem; text-align: center; }
+.transport-spacer { flex: 1 1 auto; }
+.transport-count { font-family: var(--mono); font-size: .78rem; color: var(--ink-soft); white-space: nowrap; }
+
+.stage-ribbon { display: flex; gap: 2px; align-items: stretch; flex: 1 1 220px; min-width: 140px; }
+.stage-ribbon button {
+  flex: 1; padding: .2rem .1rem; font-size: .7rem; font-family: var(--mono);
+  border-radius: 3px; overflow: hidden; white-space: nowrap;
+}
+.stage-ribbon button.done   { background: var(--settled-soft); border-color: var(--settled); }
+.stage-ribbon button.active { background: var(--accent-soft);  border-color: var(--accent); font-weight: 700; }
+.stage-ribbon button.peeled { border-style: dashed; }
+
+/* Panels */
+.panel {
+  background: var(--bg-panel); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: var(--pad);
+}
+.panel > h4 { margin: -.1rem 0 .55rem; display: flex; align-items: baseline; gap: .5rem; }
+.panel-scroll { overflow-x: auto; }

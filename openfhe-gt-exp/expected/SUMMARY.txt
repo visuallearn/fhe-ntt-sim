@@ -1,0 +1,44 @@
+OpenFHE version        : 1.5.1
+MATHBACKEND            : 4
+NATIVEINT              : 64
+MAX_MODULUS_SIZE       : 60
+Compiler               : 13.3.0
+Values come from       : ChineseRemainderTransformFTT<NativeVector>
+                         ::ForwardTransformToBitReverseInPlace
+                         ::InverseTransformFromBitReverseInPlace
+                         (the functions NativePoly::SwitchFormat calls)
+
+PARAMETER GRID
+  A dash means OpenFHE has no prime of that bit size congruent to 1 mod 2N.
+
+  bits       N=4       N=8      N=16      N=32
+     4         -         -         -         -
+     5        17        17         -         -
+     6        41         -         -         -
+     7       113       113        97         -
+     8       241       241       193       193
+     9       457       449       449       449
+    10      1009      1009       929       769
+
+18 of 28 parameter pairs are possible.
+0 of them had a failing check.
+
+REPORTS
+  n4-b5-q17.txt
+  n8-b5-q17.txt
+  n4-b6-q41.txt
+  n4-b7-q113.txt
+  n8-b7-q113.txt
+  n16-b7-q97.txt
+  n4-b8-q241.txt
+  n8-b8-q241.txt
+  n16-b8-q193.txt
+  n32-b8-q193.txt
+  n4-b9-q457.txt
+  n8-b9-q449.txt
+  n16-b9-q449.txt
+  n32-b9-q449.txt
+  n4-b10-q1009.txt
+  n8-b10-q1009.txt
+  n16-b10-q929.txt
+  n32-b10-q769.txt

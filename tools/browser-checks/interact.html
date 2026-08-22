@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>interaction check</title>
+<style>body{font:13px/1.5 ui-monospace,monospace;margin:1rem}
+#log{white-space:pre-wrap}.ok{color:#2a7}.bad{color:#b52}</style>
+</head><body>
+<h1 id="head">running…</h1>
+<div id="log"></div>
+<iframe id="f" style="width:1500px;height:1100px;border:1px solid #ccc" title="site under test"></iframe>
+<script>
+// Drives the real app in a same-origin iframe by dispatching real events, then
+// reports into the DOM so `chromium --dump-dom` can read the result. Development
+// aid: copied into docs/ only for the duration of a check run.
+const log = document.getElementById('log');
+const fails = [];
+let n = 0;
+function check(cond, msg) {
+  n++;
+  log.insertAdjacentHTML('beforeend',
+    `<div class="${cond ? 'ok' : 'bad'}">${cond ? 'ok  ' : 'FAIL'} ${msg}</div>`);
+  if (!cond) fails.push(msg);
+}
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const f = document.getElementById('f');
+f.src = 'index.html#/transform?N=8&bits=5&case=delta1&dir=forward&step=0';
+
+function W() { return f.contentWindow; }
+function D() { return f.contentDocument; }
+function step() { return Number(new URLSearchParams(W().location.hash.split('?')[1]).get('step')); }
+function param(k) { return new URLSearchParams(W().location.hash.split('?')[1]).get(k); }
+function byLabel(l) { return D().querySelector(`button[aria-label="${l}"]`); }
+function counter() { return D().querySelector('.transport-count').textContent.trim(); }
+function key(k) {
+  // `new W().KeyboardEvent(...)` parses as `(new W()).KeyboardEvent(...)` and
+  // throws; hold the constructor in a local first.
+  const KE = W().KeyboardEvent;
+  D().dispatchEvent(new KE('keydown', { key: k, bubbles: true, cancelable: true }));
+}
+function clickIn(el) {
+  const ME = W().MouseEvent;
+  el.dispatchEvent(new ME('click', { bubbles: true }));
+}
+
+f.onload = async () => {
+ try {
+  await sleep(2000);
+  check(D().body.dataset.ready === 'transform', 'transform route mounted');
+  check(!D().getElementById('errbanner'), 'no error banner on load');
+
+  // --- buttons -----------------------------------------------------------
+  check(step() === 0, `starts at step 0 (${counter()})`);
+  byLabel('Next step').click(); await sleep(120);
+  check(step() === 1, 'Next step advances one event');
+  byLabel('Next step').click(); byLabel('Next step').click(); await sleep(120);
+  check(step() === 3, 'Next step is repeatable');
+  byLabel('Previous step').click(); await sleep(120);
+  check(step() === 2, 'Previous step goes back');
+  byLabel('Jump to the end').click(); await sleep(150);
+  const total = Number(counter().split('/')[1]);
+  check(step() === total - 1, `Jump to the end lands on the last step (${counter()})`);
+  byLabel('Back to the start').click(); await sleep(120);
+  check(step() === 0, 'Back to the start returns to 0');
+
+  // --- stages ------------------------------------------------------------
+  byLabel('Next stage').click(); await sleep(120);
+  const s1 = step();
+  byLabel('Next stage').click(); await sleep(120);
+  check(step() > s1, 'Next stage moves forward past the previous stage');
+  byLabel('Previous stage').click(); await sleep(120);
+  check(step() === s1, 'Previous stage returns to the earlier stage');
+
+  const ribbon = D().querySelectorAll('.stage-ribbon button');
+  check(ribbon.length >= 3, `stage ribbon has ${ribbon.length} entries`);
+  ribbon[ribbon.length - 1].click(); await sleep(150);
+  check(D().querySelectorAll('.stage-ribbon button.active').length === 1,
+    'exactly one ribbon entry is active after a jump');
+
+  // --- keyboard ----------------------------------------------------------
+  byLabel('Back to the start').click(); await sleep(120);
+  key('ArrowRight'); await sleep(120);
+  check(step() === 1, 'ArrowRight steps forward');
+  key('ArrowLeft'); await sleep(120);
+  check(step() === 0, 'ArrowLeft steps back');
+  key('End'); await sleep(150);
+  check(step() === total - 1, 'End jumps to the last step');
+  key('Home'); await sleep(120);
+  check(step() === 0, 'Home returns to the start');
+  key('i'); await sleep(400);
+  check(param('dir') === 'inverse', 'i switches to the inverse transform');
+  key('f'); await sleep(400);
+  check(param('dir') === 'forward', 'f switches back to the forward transform');
+
+  // --- playback ----------------------------------------------------------
+  const play = byLabel('Play');
+  check(!!play, 'play button present');
+  play.click(); await sleep(1400);
+  const during = step();
+  check(during > 0, `playback advances on its own (reached step ${during})`);
+  const pause = byLabel('Pause');
+  check(!!pause, 'button becomes Pause while playing');
+  if (pause) pause.click();
+  await sleep(700);
+  check(step() === during || step() === during + 1, 'pause stops the advance');
+
+  // --- selection ---------------------------------------------------------
+  const caseBtns = [...D().querySelectorAll('.case-list button')];
+  check(caseBtns.length >= 5, `${caseBtns.length} input cases offered`);
+  caseBtns[2].click(); await sleep(400);
+  check(param('case') === 'ramp', 'clicking an input case selects it');
+  check(step() === 0, 'switching input resets to step 0');
+
+  const cells = [...D().querySelectorAll('.matrix td:not(.no) button')];
+  check(cells.length === 18, `feasibility matrix offers ${cells.length} configurations`);
+  const target = cells.find((b) => b.title.includes('N=32'));
+  target.click(); await sleep(800);
+  check(param('N') === '32', 'clicking the matrix switches ring dimension');
+  check(!D().getElementById('errbanner'), 'no error after switching to N=32');
+  check(D().querySelectorAll('.flow svg .node').length === 32 * 6,
+    `dataflow rebuilt for N=32 (${D().querySelectorAll('.flow svg .node').length} nodes)`);
+
+  const disabled = [...D().querySelectorAll('.matrix td.no')];
+  check(disabled.length === 10, `${disabled.length} infeasible cells shown as unavailable`);
+
+  // --- clicking a node jumps to the step that wrote it --------------------
+  cells.find((b) => b.title.includes('N=8')).click(); await sleep(700);
+  const nodes = [...D().querySelectorAll('.flow svg g[style*="cursor"]')];
+  check(nodes.length > 0, 'dataflow nodes are clickable');
+  clickIn(nodes[nodes.length - 1]);
+  await sleep(250);
+  check(step() > 0, `clicking an output node jumps to the step that wrote it (${step()})`);
+
+  // --- other routes still work after all that ----------------------------
+  for (const r of ['roots', 'convolution', 'tour', 'about']) {
+    W().location.hash = '#/' + r;
+    await sleep(1200);
+    check(D().body.dataset.ready === r, `navigated to #/${r}`);
+    check(!D().getElementById('errbanner'), `no error banner on #/${r}`);
+    check(D().getElementById('main').textContent.length > 400, `#/${r} rendered content`);
+  }
+
+  // Tour: walk every step.
+  W().location.hash = '#/tour?t=0';
+  await sleep(1200);
+  const dots = [...D().querySelectorAll('.tour-dots button')];
+  check(dots.length === 12, `tour has ${dots.length} steps`);
+  let tourOk = true;
+  for (let i = 0; i < dots.length; i++) {
+    D().querySelectorAll('.tour-dots button')[i].click();
+    await sleep(320);
+    const t = D().querySelector('.tour-step');
+    if (!t || t.textContent.length < 200 || D().getElementById('errbanner')) tourOk = false;
+  }
+  check(tourOk, 'every tour step renders with content and no error');
+
+  document.getElementById('head').textContent = fails.length
+    ? `${fails.length} FAILURE(S) of ${n} checks`
+    : `all ${n} interaction checks passed`;
+  document.body.dataset.result = fails.length ? 'fail' : 'pass';
+ } catch (e) {
+  check(false, 'harness threw: ' + (e && e.stack ? e.stack : e));
+  document.getElementById('head').textContent = `${fails.length} FAILURE(S) of ${n} checks`;
+  document.body.dataset.result = 'fail';
+ }
+};
+</script></body></html>

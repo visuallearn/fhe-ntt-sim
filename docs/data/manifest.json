@@ -1,0 +1,347 @@
+{
+ "schemaVersion": 1,
+ "generatedAtUtc": "2026-08-22T02:23:22Z",
+ "openfhe": {
+  "version": "1.5.1",
+  "tag": "v1.5.1",
+  "commit": "1306d14f8c26bb6150d3e6ad54f28dfe1007689e",
+  "commitShort": "1306d14f8c26",
+  "repo": "https://github.com/openfheorg/openfhe-development",
+  "sourceFile": "src/core/include/math/hal/intnat/transformnat-impl.h",
+  "sourceSha256": "e48274df5c1aac1badadc36eb7656d6c62594d519519b2adb1443d86d158e2a2",
+  "sourcePermalink": "https://github.com/openfheorg/openfhe-development/blob/1306d14f8c26bb6150d3e6ad54f28dfe1007689e/src/core/include/math/hal/intnat/transformnat-impl.h",
+  "nativeInt": 64,
+  "mathBackend": 4,
+  "maxModulusSize": 60,
+  "compiler": "13.3.0",
+  "cmakeOptions": {
+   "BUILD_EXAMPLES": "ON",
+   "BUILD_SHARED": "ON",
+   "BUILD_STATIC": "OFF",
+   "CMAKE_BUILD_TYPE": "Release",
+   "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+   "NATIVE_SIZE": "64",
+   "WITH_BE2": "OFF",
+   "WITH_BE4": "OFF",
+   "WITH_NATIVEOPT": "OFF",
+   "WITH_NTL": "OFF",
+   "WITH_OPENMP": "OFF"
+  }
+ },
+ "ringDimensions": [
+  4,
+  8,
+  16,
+  32
+ ],
+ "modulusBits": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10
+ ],
+ "configs": [
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 4,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 5,
+   "feasible": true,
+   "q": 17,
+   "psi": 2,
+   "file": "traces/n4-b5-q17.json"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 6,
+   "feasible": true,
+   "q": 41,
+   "psi": 3,
+   "file": "traces/n4-b6-q41.json"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 7,
+   "feasible": true,
+   "q": 113,
+   "psi": 18,
+   "file": "traces/n4-b7-q113.json"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 8,
+   "feasible": true,
+   "q": 241,
+   "psi": 8,
+   "file": "traces/n4-b8-q241.json"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 9,
+   "feasible": true,
+   "q": 457,
+   "psi": 170,
+   "file": "traces/n4-b9-q457.json"
+  },
+  {
+   "N": 4,
+   "M": 8,
+   "bits": 10,
+   "feasible": true,
+   "q": 1009,
+   "psi": 192,
+   "file": "traces/n4-b10-q1009.json"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 4,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 5,
+   "feasible": true,
+   "q": 17,
+   "psi": 3,
+   "file": "traces/n8-b5-q17.json"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 6,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.369:LastPrime(): Requested 6 bits, but returned 5. Please adjust parameters."
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 7,
+   "feasible": true,
+   "q": 113,
+   "psi": 35,
+   "file": "traces/n8-b7-q113.json"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 8,
+   "feasible": true,
+   "q": 241,
+   "psi": 44,
+   "file": "traces/n8-b8-q241.json"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 9,
+   "feasible": true,
+   "q": 449,
+   "psi": 35,
+   "file": "traces/n8-b9-q449.json"
+  },
+  {
+   "N": 8,
+   "M": 16,
+   "bits": 10,
+   "feasible": true,
+   "q": 1009,
+   "psi": 62,
+   "file": "traces/n8-b10-q1009.json"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 4,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 5,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 6,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 7,
+   "feasible": true,
+   "q": 97,
+   "psi": 19,
+   "file": "traces/n16-b7-q97.json"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 8,
+   "feasible": true,
+   "q": 193,
+   "psi": 8,
+   "file": "traces/n16-b8-q193.json"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 9,
+   "feasible": true,
+   "q": 449,
+   "psi": 10,
+   "file": "traces/n16-b9-q449.json"
+  },
+  {
+   "N": 16,
+   "M": 32,
+   "bits": 10,
+   "feasible": true,
+   "q": 929,
+   "psi": 170,
+   "file": "traces/n16-b10-q929.json"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 4,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 5,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 6,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 7,
+   "feasible": false,
+   "reason": "nbtheory-impl.h:l.365:LastPrime(): overflow shrinking candidate"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 8,
+   "feasible": true,
+   "q": 193,
+   "psi": 11,
+   "file": "traces/n32-b8-q193.json"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 9,
+   "feasible": true,
+   "q": 449,
+   "psi": 24,
+   "file": "traces/n32-b9-q449.json"
+  },
+  {
+   "N": 32,
+   "M": 64,
+   "bits": 10,
+   "feasible": true,
+   "q": 769,
+   "psi": 12,
+   "file": "traces/n32-b10-q769.json"
+  }
+ ],
+ "default": {
+  "N": 8,
+  "bits": 5,
+  "case": "delta1",
+  "dir": "forward"
+ },
+ "cases": [
+  {
+   "id": "delta0",
+   "label": "a(X) = 1",
+   "note": "The constant polynomial 1. Its value is 1 at every point, so the transform is all ones. This is the simplest test."
+  },
+  {
+   "id": "delta1",
+   "label": "a(X) = X",
+   "note": "The value of X at a point is the point. This transform is therefore the list of evaluation points: out[p] = psi^(2*brev(p)+1)."
+  },
+  {
+   "id": "ramp",
+   "label": "a_i = i",
+   "note": "A ramp. It has no symmetry that can hide a mistake."
+  },
+  {
+   "id": "ones",
+   "label": "a_i = 1",
+   "note": "Every coefficient is 1. The output looks random, but it is only this polynomial at N different points."
+  },
+  {
+   "id": "sparse",
+   "label": "a(X) = 3 + 5X^(N-1)",
+   "note": "Two non-zero coefficients. One is at the top degree, where X^N = -1 becomes important."
+  },
+  {
+   "id": "random",
+   "label": "pseudo-random coefficients",
+   "note": "What a real ciphertext polynomial looks like: uniform residues mod q. A fixed-seed xorshift64* generates them, so the trace repeats exactly."
+  },
+  {
+   "id": "nearmax",
+   "label": "a_i = q-1",
+   "note": "Every coefficient is at the largest residue. The conditional subtractions inside the butterfly then run."
+  }
+ ],
+ "convolutions": [
+  {
+   "id": "square",
+   "label": "X * X = X^2",
+   "note": "The simplest product. Nothing passes the top degree."
+  },
+  {
+   "id": "wrap",
+   "label": "X^(N-1) * X = X^N = -1",
+   "note": "The purpose of this ring. The product passes degree N, returns to degree 0, and changes sign."
+  },
+  {
+   "id": "random",
+   "label": "two random polynomials",
+   "note": "The realistic case."
+  }
+ ],
+ "source": {
+  "forward": "source/forward.json",
+  "inverse": "source/inverse.json",
+  "precompute": "source/precompute.json",
+  "citations": "source/citations.json",
+  "license": "source/LICENSE-OpenFHE.txt"
+ }
+}

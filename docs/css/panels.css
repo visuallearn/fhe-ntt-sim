@@ -1,0 +1,253 @@
+/* ============ shared bits ============ */
+.badge {
+  display: inline-block; padding: .05rem .38rem; border-radius: 999px;
+  font-size: .68rem; font-family: var(--mono); letter-spacing: .02em;
+  border: 1px solid var(--rule-strong); color: var(--ink-soft); background: var(--bg-sunken);
+}
+.badge.peeled { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
+.badge.fused  { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
+.badge.main   { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.note {
+  border-left: 3px solid var(--warn); background: var(--warn-soft);
+  padding: .5rem .65rem; border-radius: 0 var(--r) var(--r) 0;
+  font-size: .82rem; margin: .5rem 0;
+}
+.note > summary { cursor: pointer; font-weight: 600; color: var(--warn); }
+.note[open] > summary { margin-bottom: .4rem; }
+.hint { font-size: .78rem; color: var(--ink-faint); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem; font-size: .82rem; }
+.kv dt { color: var(--ink-soft); }
+.kv dd { margin: 0; font-family: var(--mono); }
+
+/* Inline maths, hand-rolled: everything here is superscripts, subscripts and
+   operators, so a 1 MB typesetting library would be dead weight. Stays
+   selectable and screen-reader friendly. */
+.m { font-family: var(--mono); white-space: nowrap; }
+.m sub, .m sup { font-size: .72em; line-height: 0; }
+.m-var { font-style: italic; font-family: var(--sans); }
+.m-op  { color: var(--ink-faint); padding: 0 .32em; }
+.m-tw  { color: var(--twiddle); font-weight: 600; }
+.m-res { color: var(--accent); font-weight: 700; }
+.m-in  { color: var(--read); font-weight: 600; }
+
+/* ============ config panel ============ */
+.cfg-row { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin-bottom: .5rem; }
+.cfg-row label { font-size: .78rem; color: var(--ink-soft); }
+.case-list { display: flex; flex-direction: column; gap: 2px; margin: .35rem 0 0; }
+.case-list button {
+  text-align: left; font-size: .8rem; padding: .25rem .45rem; line-height: 1.3;
+  border-color: transparent; background: transparent;
+}
+.case-list button:hover { background: var(--bg-hover); }
+.case-list button[aria-pressed="true"] {
+  background: var(--accent-soft); border-color: var(--accent); font-weight: 600;
+}
+.case-list .case-id { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); }
+.case-list button[aria-pressed="true"] .case-id { color: var(--accent); }
+
+.matrix { border-collapse: collapse; font-family: var(--mono); font-size: .72rem; margin-top: .3rem; }
+.matrix th, .matrix td { border: 1px solid var(--rule); padding: .12rem .3rem; text-align: center; }
+.matrix th { color: var(--ink-soft); font-weight: 500; background: var(--bg-sunken); }
+.matrix td button { padding: .05rem .25rem; font-size: .72rem; border-color: transparent; background: none; width: 100%; }
+.matrix td.no { color: var(--ink-faint); background: var(--bg-sunken); }
+.matrix td.sel { background: var(--accent-soft); }
+.matrix td.sel button { color: var(--accent); font-weight: 700; }
+
+/* ============ params + twiddles ============ */
+.params-list { display: grid; grid-template-columns: auto 1fr; gap: .12rem .55rem; font-size: .82rem; align-items: baseline; }
+.params-list dt { color: var(--ink-soft); white-space: nowrap; }
+.params-list dd { margin: 0; }
+.params-check { font-size: .76rem; color: var(--settled); font-family: var(--mono); }
+
+.tw-table { border-collapse: collapse; font-family: var(--mono); font-size: .74rem; width: 100%; }
+.tw-table th { text-align: right; color: var(--ink-soft); font-weight: 500; padding: .1rem .3rem; border-bottom: 1px solid var(--rule); }
+.tw-table td { text-align: right; padding: .08rem .3rem; border-bottom: 1px solid var(--bg-sunken); }
+.tw-table tr.active td { background: var(--twiddle-soft); font-weight: 700; }
+.tw-table tr.unused td { color: var(--ink-faint); }
+.tw-table td.v { color: var(--twiddle); font-weight: 600; }
+.tabs { display: flex; gap: .15rem; margin-bottom: .35rem; }
+.tabs button { font-size: .74rem; padding: .15rem .5rem; }
+
+/* ============ array view ============ */
+.arr { display: grid; gap: 1px; font-family: var(--mono); font-size: .78rem; }
+.arr-row {
+  display: grid; grid-template-columns: 2.2rem 3.4rem 3.4rem 5.6rem 1fr;
+  gap: .35rem; align-items: center; padding: .05rem .2rem; border-radius: 3px;
+}
+.arr-row.head { color: var(--ink-soft); font-size: .68rem; border-bottom: 1px solid var(--rule); padding-bottom: .15rem; }
+.arr-row .idx  { color: var(--ink-soft); }
+.arr-row .bin  { color: var(--ink-faint); font-size: .72rem; }
+.arr-row .brv  { color: var(--ink-faint); font-size: .72rem; }
+.arr-row .val  { text-align: right; font-weight: 600; }
+.arr-row.lo { background: var(--accent-soft); }
+.arr-row.hi { background: var(--read-soft); }
+.arr-row.lo .val { color: var(--accent); }
+.arr-row.hi .val { color: var(--read); }
+.arr-row .tag { font-size: .66rem; letter-spacing: .04em; text-transform: uppercase; }
+.bar { height: 7px; background: var(--bg-sunken); border-radius: 999px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--rule-strong); }
+.arr-row.lo .bar > i { background: var(--accent); }
+.arr-row.hi .bar > i { background: var(--read); }
+.arr-stride { font-size: .74rem; color: var(--ink-soft); margin-bottom: .3rem; font-family: var(--mono); }
+
+/* ============ butterfly dataflow ============ */
+.flow-wrap { overflow-x: auto; overflow-y: hidden; }
+.flow svg { display: block; }
+.flow .col-head { font: 600 10px var(--mono); fill: var(--ink-soft); }
+.flow .col-sub  { font: 9px var(--mono); fill: var(--ink-faint); }
+.flow .rowlab   { font: 9px var(--mono); fill: var(--ink-faint); }
+.flow .edge     { stroke: var(--rule); stroke-width: 1; fill: none; }
+.flow .edge.settled { stroke: var(--rule-strong); }
+.flow .edge.active  { stroke: var(--accent); stroke-width: 2.2; }
+.flow .edge.mul     { stroke: var(--twiddle); stroke-dasharray: 3 2; }
+.flow .edge.mul.active { stroke: var(--twiddle); stroke-width: 2.2; stroke-dasharray: none; }
+.flow .node   { fill: var(--bg-panel); stroke: var(--rule-strong); stroke-width: 1; }
+.flow .node.settled { fill: var(--settled-soft); stroke: var(--settled); }
+.flow .node.active  { fill: var(--accent-soft);  stroke: var(--accent); stroke-width: 2; }
+.flow .nval  { font: 9px var(--mono); fill: var(--ink-soft); text-anchor: middle; dominant-baseline: middle; }
+.flow .nval.settled { fill: var(--settled); }
+.flow .nval.active  { fill: var(--accent); font-weight: 700; }
+/* Twiddle labels sit on top of a dozen crossing edges, so give them a halo in
+   the panel colour rather than hoping for the best. */
+.flow .twlab {
+  font: 600 9px var(--mono); fill: var(--twiddle);
+  stroke: var(--bg-panel); stroke-width: 3px; paint-order: stroke fill;
+}
+.flow .peelbox { fill: var(--warn-soft); opacity: .5; }
+.flow .peellab { font: 8px var(--mono); fill: var(--warn); }
+.flow .outexp {
+  font: 9px var(--mono); fill: var(--twiddle);
+  stroke: var(--bg-panel); stroke-width: 2.5px; paint-order: stroke fill;
+}
+.flow-legend, .legend-inline { display: flex; flex-wrap: wrap; gap: .1rem .8rem; font-size: .72rem; color: var(--ink-soft); margin-top: .4rem; }
+.flow-legend span::before {
+  content: ""; display: inline-block; width: .6rem; height: .6rem; margin-right: .3rem;
+  border-radius: 2px; vertical-align: -1px; border: 1px solid var(--rule-strong);
+}
+.flow-legend .l-pend::before { background: var(--bg-panel); }
+.flow-legend .l-set::before  { background: var(--settled-soft); border-color: var(--settled); }
+.flow-legend .l-act::before  { background: var(--accent-soft);  border-color: var(--accent); }
+.flow-legend .l-mul::before  { background: var(--twiddle-soft); border-color: var(--twiddle); }
+
+/* ============ math box ============ */
+.math-lines { display: flex; flex-direction: column; gap: .28rem; font-size: .86rem; }
+.math-line { display: flex; gap: .45rem; align-items: baseline; }
+.math-line .lbl { color: var(--ink-faint); font-size: .72rem; min-width: 4.6rem; text-align: right; font-family: var(--mono); }
+.math-head { font-size: .78rem; color: var(--ink-soft); margin-bottom: .45rem; display: flex; flex-wrap: wrap; gap: .35rem; align-items: baseline; }
+.math-empty { color: var(--ink-faint); font-size: .84rem; }
+
+/* ============ code panel ============ */
+.code-crumb { font-family: var(--mono); font-size: .66rem; color: var(--ink-faint); margin-bottom: .45rem; }
+.code-crumb ol { list-style: none; margin: 0; padding: 0; }
+.code-crumb li { padding-left: 0; overflow-wrap: anywhere; }
+.code-crumb li + li::before { content: "↳ "; color: var(--rule-strong); }
+.code-crumb li + li { padding-left: .6rem; }
+.code-crumb li:last-child { color: var(--ink); font-weight: 600; }
+.code-crumb b { color: var(--ink-soft); font-weight: 600; }
+.code-scroll { max-height: 30rem; overflow: auto; background: var(--bg-sunken); border-radius: var(--r); border: 1px solid var(--rule); }
+.code { font-family: var(--mono); font-size: .66rem; line-height: 1.5; white-space: pre; display: table; min-width: 100%; }
+.code .ln { display: table-row; }
+.code .ln > span { display: table-cell; padding: 0 .35rem; }
+.code .ln .n { color: var(--ink-faint); text-align: right; user-select: none; border-right: 1px solid var(--rule); position: sticky; left: 0; background: var(--bg-sunken); }
+.code .ln.cur { background: var(--accent-soft); }
+.code .ln.cur .n { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.code .ln.cur .t { color: var(--ink); font-weight: 600; }
+.code .ln.dim .t { opacity: .45; }
+.code .ln.pp  .t { color: var(--ink-faint); }
+.code .ln.rgn { background: var(--bg-hover); }
+.code-vars { display: flex; flex-wrap: wrap; gap: .1rem .5rem; font-family: var(--mono); font-size: .7rem; margin-top: .4rem; }
+.code-vars b { color: var(--ink-faint); font-weight: 500; }
+.code-vars span { white-space: nowrap; }
+.code-foot { font-size: .68rem; color: var(--ink-faint); margin-top: .45rem; }
+.code-doc { font-family: var(--mono); font-size: .66rem; color: var(--ink-soft); background: var(--bg-sunken); border: 1px solid var(--rule); border-radius: var(--r); padding: .4rem .5rem; white-space: pre-wrap; max-height: 12rem; overflow: auto; }
+
+/* ============ roots of unity ============ */
+.roots-grid { display: grid; gap: 1rem; grid-template-columns: minmax(280px, 460px) minmax(0, 1fr); align-items: start; }
+.circle { max-width: 100%; height: auto; }
+@media (max-width: 860px) { .roots-grid { grid-template-columns: 1fr; } }
+.circle .ring   { fill: none; stroke: var(--rule); stroke-width: 1; }
+.circle .spoke  { stroke: var(--bg-sunken); stroke-width: 1; }
+.circle .pt     { stroke: var(--bg-panel); stroke-width: 1.5; }
+.circle .pt.odd { fill: var(--twiddle); }
+.circle .pt.even{ fill: var(--settled); }
+.circle .pt.one { fill: var(--ink-soft); }
+.circle .pt.neg { fill: var(--warn); }
+.circle .pt.sel { stroke: var(--accent); stroke-width: 3; }
+.circle .lab    { font: 9px var(--mono); fill: var(--ink-soft); }
+.circle .lab.odd { fill: var(--twiddle); font-weight: 700; }
+.circle .cap    { font: 10px var(--mono); fill: var(--ink-faint); }
+.ladder { display: flex; flex-wrap: wrap; gap: 2px; font-family: var(--mono); font-size: .66rem; }
+.ladder i {
+  display: inline-block; min-width: 1.85rem; text-align: center; padding: .1rem .15rem;
+  border: 1px solid var(--rule); border-radius: 3px; font-style: normal; background: var(--bg-panel);
+}
+.ladder i.sub { background: var(--twiddle-soft); border-color: var(--twiddle); color: var(--twiddle); font-weight: 700; }
+.slotmap { border-collapse: collapse; font-family: var(--mono); font-size: .72rem; }
+.slotmap th, .slotmap td { border: 1px solid var(--rule); padding: .1rem .35rem; text-align: right; }
+.slotmap th { background: var(--bg-sunken); color: var(--ink-soft); font-weight: 500; }
+.slotmap tr.sel td { background: var(--accent-soft); font-weight: 700; }
+.slotmap td.pt { color: var(--twiddle); }
+
+/* ============ convolution ============ */
+.conv-grid { display: grid; gap: 1rem; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: start; }
+@media (max-width: 1000px) { .conv-grid { grid-template-columns: 1fr; } }
+.school { border-collapse: collapse; font-family: var(--mono); font-size: .68rem; }
+.school th, .school td { border: 1px solid var(--rule); padding: .08rem .28rem; text-align: right; min-width: 2.1rem; }
+.school th { background: var(--bg-sunken); color: var(--ink-soft); font-weight: 500; }
+.school td.wrap { background: var(--warn-soft); color: var(--warn); }
+
+/* Legend for the shading in the schoolbook grid. The shading marks the products
+   whose degree overflows the top of the polynomial, which is the whole reason
+   this ring behaves differently from ordinary multiplication. */
+.school-legend {
+  display: flex; flex-wrap: wrap; gap: .1rem .9rem;
+  font-size: .72rem; color: var(--ink-soft); margin-top: .45rem;
+}
+.school-legend span::before {
+  content: ""; display: inline-block; width: .7rem; height: .7rem;
+  margin-right: .35rem; vertical-align: -1px; border-radius: 2px;
+  border: 1px solid var(--warn); background: var(--warn-soft);
+}
+.school-legend span.plain::before { border-color: var(--rule-strong); background: var(--bg-panel); }
+.school td.zero { color: var(--ink-faint); }
+.school td.nz   { font-weight: 700; }
+.pipe { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; font-size: .8rem; margin: .5rem 0; }
+.pipe .box {
+  border: 1px solid var(--rule-strong); border-radius: var(--r); padding: .25rem .5rem;
+  background: var(--bg-panel); font-family: var(--mono); font-size: .74rem;
+}
+.pipe .box.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.pipe .arrow { color: var(--ink-faint); }
+.vecline { font-family: var(--mono); font-size: .74rem; overflow-x: auto; white-space: nowrap; padding-bottom: .2rem; }
+.vecline b { color: var(--ink-faint); font-weight: 500; margin-right: .35rem; }
+.opcount { display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: .82rem; margin-top: .6rem; }
+.opcount .big { font-family: var(--mono); font-size: 1.25rem; font-weight: 700; display: block; }
+.opcount .slow .big { color: var(--warn); }
+.opcount .fast .big { color: var(--settled); }
+
+/* ============ tour ============ */
+.tour { max-width: 68ch; margin: 0 auto; padding: 1.25rem 1rem 2rem; }
+.tour-nav { display: flex; gap: .4rem; align-items: center; margin: 1rem 0; flex-wrap: wrap; }
+.tour-dots { display: flex; gap: 3px; margin-left: auto; }
+.tour-dots button { width: .95rem; height: .95rem; padding: 0; border-radius: 999px; font-size: 0; }
+.tour-dots button[aria-current="true"] { background: var(--accent); border-color: var(--accent); }
+.tour-step { border-left: 3px solid var(--accent); padding-left: .85rem; }
+.tour-step h2 { margin-bottom: .35rem; }
+.tour-count { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint); }
+.tour-fig { margin: .9rem 0; padding: .7rem; background: var(--bg-panel); border: 1px solid var(--rule); border-radius: var(--r); }
+.tour-fig > h4 { margin-bottom: .5rem; }
+
+/* ============ about ============ */
+.prov { border-collapse: collapse; font-size: .8rem; width: 100%; }
+.prov th, .prov td { border-bottom: 1px solid var(--rule); padding: .3rem .5rem; text-align: left; vertical-align: top; }
+.prov th { color: var(--ink-soft); font-weight: 500; white-space: nowrap; width: 1%; }
+.prov td { font-family: var(--mono); font-size: .74rem; word-break: break-all; }
+pre.cmd {
+  background: var(--bg-sunken); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: .6rem .7rem; overflow-x: auto; font-family: var(--mono); font-size: .74rem; line-height: 1.55;
+}
+
+/* Long identifiers and URLs in prose have no natural break point; without this
+   they push the whole page sideways on a narrow screen. */
+.route-prose { overflow-wrap: anywhere; }
+.route-prose code, .route-prose a { overflow-wrap: anywhere; }

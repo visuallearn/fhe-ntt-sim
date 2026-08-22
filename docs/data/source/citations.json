@@ -1,0 +1,28 @@
+{
+ "file": "src/core/include/math/hal/intnat/transformnat.h",
+ "forwardDoc": "/**\n   * In-place forward transform in the ring Z_q[X]/(X^n+1) with prime q and\n   * power-of-two n s.t. 2n|q-1. Bit reversing indexes. The method works for the\n   * NativeInteger case based on NTL's modular multiplication. [Algorithm 1 in\n   * https://eprint.iacr.org/2016/504.pdf]\n   *\n   * @param &rootOfUnityTable is the table with the root of unity powers in bit\n   * reverse order.\n   * @param &preconRootOfUnityTable is NTL-specific precomputations for\n   * optimized NativeInteger modulo multiplications.\n   * @param[in,out] &element is the input/output of the transform of type VecType and length n.\n   * @return none\n   */",
+ "inverseDoc": "/**\n   * In-place inverse transform in the ring Z_q[X]/(X^n+1) with prime q and\n   * power-of-two n s.t. 2n|q-1. Bit reversing indexes. [Algorithm 2 in\n   * https://eprint.iacr.org/2016/504.pdf]\n   *\n   * @param &rootOfUnityInverseTable is the table with the inverse 2n-th root of\n   * unity powers in bit reverse order.\n   * @param &cycloOrderInv is inverse of n modulo q\n   * @param[in,out] &element is the input/output of the transform of type VecType and length n.\n   * @return none\n   */",
+ "papers": [
+  {
+   "id": "longa-naehrig-2016",
+   "title": "Speeding up the Number Theoretic Transform for Faster Ideal Lattice-Based Cryptography",
+   "authors": "Patrick Longa, Michael Naehrig",
+   "url": "https://eprint.iacr.org/2016/504",
+   "used_for": "Algorithm 1 (forward, Cooley-Tukey) and Algorithm 2 (inverse, Gentleman-Sande), cited by OpenFHE in transformnat.h"
+  },
+  {
+   "id": "harvey-2014",
+   "title": "Faster arithmetic for number-theoretic transforms",
+   "authors": "David Harvey",
+   "url": "https://arxiv.org/abs/1205.2926",
+   "used_for": "Algorithm 2 lines 5-7: the precomputed-multiplicand modular multiplication (Shoup/NTL), cited by OpenFHE in ubintnat.h"
+  },
+  {
+   "id": "openfhe-872",
+   "title": "Fold the 1/N scaling into the inverse transform's final stage",
+   "authors": "OpenFHE issue #872",
+   "url": "https://github.com/openfheorg/openfhe-development/issues/872",
+   "used_for": "Why the inverse transform's last twiddle is psi^-(N/2) * N^-1 rather than a plain power of psi^-1"
+  }
+ ]
+}
