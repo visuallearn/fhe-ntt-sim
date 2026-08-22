@@ -197,6 +197,25 @@ tools/openfhe-src/        the hook header and the trace generator
                           (git-ignored)
 ```
 
+## Author
+
+Built by [Dr. Ahmad Al Badawi](https://www.ahmadalbadawi.com).
+
+## How to cite
+
+GitHub renders `CITATION.cff` as a **Cite this repository** button on the
+repository page. BibTeX:
+
+```bibtex
+@software{albadawi_ntt_explorer_2026,
+  author = {Al Badawi, Ahmad},
+  title  = {{NTT} / {INTT} Explorer: a step-by-step visual simulation of
+            {OpenFHE}'s Number Theoretic Transform},
+  year   = {2026},
+  url    = {https://visuallearn.github.io/fhe-ntt-sim/}
+}
+```
+
 ## Licence and citations
 
 Site code: see `LICENSE`.

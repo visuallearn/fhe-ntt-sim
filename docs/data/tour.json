@@ -83,7 +83,7 @@
       "body": [
         "The transform uses one small operation many times. That operation is a **butterfly**. The name comes from its shape in the diagram.",
         "The butterfly reads two numbers from the array, `u` and `v`. It also reads a twiddle factor `omega`. Then it writes two numbers back.",
-        "The two results are **u + v*omega** and **u - v*omega**. The butterfly reduces both results mod {{q}}.",
+        "The two results are **u + v·omega** and **u − v·omega**. The butterfly reduces both results mod {{q}}.",
         "One butterfly needs one multiplication, one addition and one subtraction. This arrangement is the *Cooley-Tukey* butterfly, and the forward transform uses it."
       ]
     },
@@ -115,7 +115,7 @@
       "fig": "gs",
       "body": [
         "The inverse transform changes values back into coefficients. It uses the same diagram in the opposite direction. Its butterfly is the mirror image.",
-        "The two results are **u + v** and **(u - v) * omega**. The multiplication is now on the difference. The twiddles are powers of ψ⁻¹ ({{psiInv}}), not powers of ψ. This arrangement is the *Gentleman-Sande* butterfly.",
+        "The two results are **u + v** and **(u − v)·omega**. The multiplication is now on the difference. The twiddles are powers of ψ⁻¹ ({{psiInv}}), not powers of ψ. This arrangement is the *Gentleman-Sande* butterfly.",
         "The distances are also in the opposite order. Adjacent slots come first. The largest distance comes last.",
         "The last operation divides each value by {{N}}. The modulus makes this a multiplication by N⁻¹ = {{nInv}}.",
         "OpenFHE puts part of this division into the twiddle of the last stage. This method saves {{halfN}} multiplications. That twiddle is therefore not a simple power of ψ⁻¹. The simulator shows this."

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this simulator or its data, please cite it as below."
+title: "NTT / INTT Explorer"
+abstract: "A step-by-step visual simulation of the forward and inverse Number Theoretic Transform, exactly as OpenFHE computes them."
+type: software
+authors:
+  - family-names: "Al Badawi"
+    given-names: "Ahmad"
+    website: "https://www.ahmadalbadawi.com"
+license: MIT
+date-released: "2026-08-21"
+repository-code: "https://github.com/visuallearn/fhe-ntt-sim"
+url: "https://visuallearn.github.io/fhe-ntt-sim/"
+keywords:
+  - "number theoretic transform"
+  - "NTT"
+  - "homomorphic encryption"
+  - "OpenFHE"
+  - "education"
