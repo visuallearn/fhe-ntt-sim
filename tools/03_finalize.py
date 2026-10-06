@@ -59,6 +59,29 @@ def cmake_cache(build: Path) -> dict[str, str]:
     return out
 
 
+def recordings_unchanged(out: dict) -> str | None:
+    """The previous generatedAtUtc, if this run recorded nothing new.
+
+    A fresh timestamp on every run made docs/data/ differ from the committed copy
+    even when every trace was byte-identical, so CI's reproducibility check could
+    never pass. The date only moves when the recordings do: every other file in
+    docs/data/ matches git HEAD, and so does every other manifest field."""
+    old_path = DATA / "manifest.json"
+    if not old_path.is_file():
+        return None
+    old = json.loads(old_path.read_text())
+    stamp = old.pop("generatedAtUtc", None)
+    if stamp is None or old != {k: v for k, v in out.items() if k != "generatedAtUtc"}:
+        return None
+    status = subprocess.run(
+        ["git", "-C", str(REPO), "status", "--porcelain", "--untracked-files=all", "--", "docs/data"],
+        check=True, capture_output=True, text=True,
+    ).stdout.splitlines()
+    others = [line for line in status
+              if not line.endswith(("docs/data/manifest.json", "docs/data/manifest.partial.json"))]
+    return None if others else stamp
+
+
 def main() -> None:
     partial = DATA / "manifest.partial.json"
     if not partial.is_file():
@@ -123,6 +146,10 @@ def main() -> None:
             "license": "source/LICENSE-OpenFHE.txt",
         },
     }
+
+    kept = recordings_unchanged(out)
+    if kept:
+        out["generatedAtUtc"] = kept
 
     (DATA / "manifest.json").write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8")
     partial.unlink()
